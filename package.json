@@ -2,6 +2,7 @@
   "name": "vuiet",
   "private": "true",
   "main": "./src/index.js",
+  "version": "0.0.1-alpha",
   "scripts": {
     "build": "tsc",
     "start": "tsc && node ./dist/index.js"
@@ -11,6 +12,8 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@mysten/sui.js": "0.32.1"
+    "@mysten/sui.js": "0.32.1",
+    "@mysten/wallet-standard": "^0.5.3",
+    "@wallet-standard/core": "^1.0.3"
   }
 }

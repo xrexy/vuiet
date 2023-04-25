@@ -1,0 +1,41 @@
+export type Chain = {
+  nodeUrl: string;
+  displayName: string;
+  key: string;
+};
+
+export const ValidChains = [
+  "SUI_DEVNET",
+  "SUI_TESTNET",
+  "SUI_MAINNET",
+  "UNKNOWN",
+] as const;
+
+export const Chains: Readonly<Record<(typeof ValidChains)[number], Chain>> = {
+  SUI_DEVNET: {
+    key: "sui:devnet",
+    nodeUrl: "https://fullnode.devnet.sui.io/",
+    displayName: "SUI Devnet",
+  },
+
+  SUI_TESTNET: {
+    key: "sui:testnet",
+    nodeUrl: "https://fullnode.testnet.sui.io/",
+    displayName: "SUI Testnet",
+  },
+
+  /**
+   * Note: As of writting this mainnet has not launched - nodeUrl and key are placeholders and are likely to change.
+   */
+  SUI_MAINNET: {
+    key: "sui:mainnet",
+    nodeUrl: "https://fullnode.mainnet.sui.io/",
+    displayName: "SUI Mainnet",
+  },
+
+  UNKNOWN: {
+    key: "unknown:unknown",
+    displayName: "Unknown",
+    nodeUrl: "",
+  },
+};
