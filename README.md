@@ -7,13 +7,3 @@ A Vue oriented wallet manager built for the Sui Network. Based on [solana-wallet
 
 ## Notes:
 * @mysten/sui.js - "The SDK will be published to npm registry with the same bi-weekly release cycle as the DevNet validators and [RPC Server](https://github.com/MystenLabs/sui/blob/main/doc/src/build/json-rpc.md)."
-
-
-## Devnet Nodes
-* https://fullnode.devnet.sui.io/
-
-## Testnet Nodes
-* https://fullnode.testnet.sui.io/
-
-## Mainnet:
-* TBA
