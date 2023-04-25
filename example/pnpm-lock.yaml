@@ -4,6 +4,9 @@ dependencies:
   vue:
     specifier: ^3.2.47
     version: 3.2.47
+  vuiet:
+    specifier: file:../src
+    version: file:../src
 
 devDependencies:
   '@vitejs/plugin-vue':
@@ -573,3 +576,9 @@ packages:
   /yallist@4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
     dev: true
+
+  file:../src:
+    resolution: {directory: ../src, type: directory}
+    name: src
+    version: 0.0.0
+    dev: false

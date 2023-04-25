@@ -1,5 +1,4 @@
 import { Chain, ValidChains } from ".";
-import { Nullable } from "./generic";
 
 export type IWalletMetadata = {
   displayName: string;
