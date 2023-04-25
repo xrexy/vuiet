@@ -1,5 +1,5 @@
 # vuiet
-A Vue oriented wallet manager built for the Sui Network. Based on [solana-wallets-vue](https://github.com/lorisleiva/solana-wallets-vue).
+A Vue wallet manager built for the Sui Network. Based on [solana-wallets-vue](https://github.com/lorisleiva/solana-wallets-vue).
 
 ## Documentation, so you suffer with me:
 * [@mysten/sui.js](http://typescript-sdk-docs.s3-website-us-east-1.amazonaws.com/)
