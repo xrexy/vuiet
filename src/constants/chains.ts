@@ -1,17 +1,6 @@
-export type Chain = {
-  nodeUrl: string;
-  displayName: string;
-  key: string;
-};
+import { Chain, ValidChains } from "@/types";
 
-export const ValidChains = [
-  "SUI_DEVNET",
-  "SUI_TESTNET",
-  "SUI_MAINNET",
-  "UNKNOWN",
-] as const;
-
-export const Chains: Readonly<Record<(typeof ValidChains)[number], Chain>> = {
+export const Chains: Record<ValidChains | "UNKNOWN", Chain> = {
   SUI_DEVNET: {
     key: "sui:devnet",
     nodeUrl: "https://fullnode.devnet.sui.io/",

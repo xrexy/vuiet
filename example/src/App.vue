@@ -1,9 +1,9 @@
 <template>
   <h1>Vuiet Example</h1>
-  <p>{{ wip }}</p>
 </template>
 <script lang="ts" setup>
-import { Test } from "../../src";
+import { useWallet } from "../../src";
 
-const { a: wip }: Test = { a: "wip" };
+const $wallet = useWallet();
+$wallet;
 </script>

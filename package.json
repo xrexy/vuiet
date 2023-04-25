@@ -14,6 +14,7 @@
   "dependencies": {
     "@mysten/sui.js": "0.32.1",
     "@mysten/wallet-standard": "^0.5.3",
-    "@wallet-standard/core": "^1.0.3"
+    "@wallet-standard/core": "^1.0.3",
+    "vue": "^3.2.47"
   }
 }
