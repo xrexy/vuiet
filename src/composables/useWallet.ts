@@ -1,11 +1,15 @@
-import { Chains } from "./constants";
+import { ref } from "vue";
+import { Chains } from "../constants";
 import {
-  Nullable,
   IWalletStore,
   IWalletStoreProps,
+  Nullable,
+  ValidChain,
   ValidChainsArr,
-  ValidChains,
-} from "./types";
+} from "../types";
+import { WalletAdapter } from "../wallet/wallet.adapter";
+import { useAvailableWallets } from "./useAvailableWallets";
+import { DefaultWallets } from "../wallet/wallet.metadata";
 
 let store: Nullable<IWalletStore> = null;
 
@@ -22,19 +26,25 @@ export const initWallet = (walletStoreProps: IWalletStoreProps): void => {
 };
 
 const createWalletStore = ({
-  chain,
+  chainOverwrite,
+  chain = "SUI_DEVNET",
   debug = true,
 }: IWalletStoreProps): IWalletStore => {
+  const connecting = ref(false);
+  const disconnecting = ref(false);
+  const adapter = ref<Nullable<WalletAdapter>>(null);
+
   // Overwrite default chain values with user provided values, then freeze the object to prevent further changes.
   {
-    if (chain) {
-      for (const [key, newValue] of Object.entries(chain)) {
+    if (chainOverwrite) {
+      for (const [key, newValue] of Object.entries(chainOverwrite)) {
         if (!isValidChainKey(key)) continue;
 
         const chain = Chains[key];
         chain.nodeUrl = newValue.nodeUrl || chain.nodeUrl;
         chain.displayName = newValue.displayName || chain.displayName;
         chain.key = newValue.key || chain.key;
+        chain.faucetUrl = newValue.faucetUrl || chain.faucetUrl;
 
         if (debug)
           console.debug(`Overwrote chain ${key}, new value is:`, chain);
@@ -44,9 +54,15 @@ const createWalletStore = ({
     Object.freeze(Chains);
   }
 
+  const {configured, detected, installed} = useAvailableWallets(DefaultWallets);
+  console.log(configured.value, 'configured');
+  console.log(detected.value, 'detected');
+  console.log(installed.value, 'installed');
+  const { nodeUrl, faucetUrl } = Chains[chain];
+
   return {};
 };
 
-const isValidChainKey = (key: string): key is ValidChains => {
+const isValidChainKey = (key: string): key is ValidChain => {
   return ValidChainsArr.includes(key as any);
 };

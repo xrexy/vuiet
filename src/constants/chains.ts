@@ -1,6 +1,6 @@
-import { Chain, ValidChains } from "@/types";
+import { Chain, ValidChain } from "../types";
 
-export const Chains: Record<ValidChains | "UNKNOWN", Chain> = {
+export const Chains: Record<ValidChain | "UNKNOWN", Chain> = {
   SUI_DEVNET: {
     key: "sui:devnet",
     nodeUrl: "https://fullnode.devnet.sui.io/",

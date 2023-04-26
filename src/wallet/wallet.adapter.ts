@@ -1,18 +1,3 @@
-import { Nullable } from "@/types";
-import {
-  SuiSignAndExecuteTransactionBlockFeature,
-  SuiSignTransactionBlockFeature,
-  SuiSignMessageFeature,
-  SuiSignAndExecuteTransactionBlockMethod,
-  SuiSignTransactionBlockMethod,
-  SuiSignMessageMethod,
-  SuiSignAndExecuteTransactionBlockInput,
-  SuiSignAndExecuteTransactionBlockOutput,
-  SuiSignTransactionBlockInput,
-  SuiSignTransactionBlockOutput,
-  SuiSignMessageInput,
-  SuiSignMessageOutput,
-} from "@mysten/wallet-standard";
 import {
   StandardConnectFeature,
   StandardConnectInput,
@@ -24,9 +9,21 @@ import {
   StandardEventsListeners,
   StandardEventsNames,
   StandardEventsOnMethod,
+  SuiSignAndExecuteTransactionBlockFeature,
+  SuiSignAndExecuteTransactionBlockInput,
+  SuiSignAndExecuteTransactionBlockMethod,
+  SuiSignAndExecuteTransactionBlockOutput,
+  SuiSignMessageFeature,
+  SuiSignMessageInput,
+  SuiSignMessageMethod,
+  SuiSignMessageOutput,
+  SuiSignTransactionBlockFeature,
+  SuiSignTransactionBlockInput,
+  SuiSignTransactionBlockMethod,
+  SuiSignTransactionBlockOutput,
   Wallet,
   WalletWithFeatures,
-} from "@wallet-standard/core";
+} from "@mysten/wallet-standard";
 import { has } from "lodash-es";
 
 export enum Feature {
@@ -61,28 +58,34 @@ export class WalletAdapter implements IWalletAdapter {
     this.#standardAdapter = standardAdapter;
   }
 
+  getName = () => this.#standardAdapter.name;
   get name() {
-    return this.#standardAdapter.name;
+    return this.getName();
   }
 
+  getVersion = () => this.#standardAdapter.version;
   get version() {
-    return this.#standardAdapter.version;
+    return this.getVersion();
   }
 
+  getIcon = () => this.#standardAdapter.icon;
   get icon() {
-    return this.#standardAdapter.icon;
+    return this.getIcon();
   }
 
+  getChains = () => this.#standardAdapter.chains;
   get chains() {
-    return this.#standardAdapter.chains;
+    return this.getChains();
   }
 
+  getAccounts = () => this.#standardAdapter.accounts;
   get accounts() {
-    return this.#standardAdapter.accounts;
+    return this.getAccounts();
   }
 
+  getFeatures = () => this.#standardAdapter.features as any;
   get features() {
-    return this.#standardAdapter.features as any;
+    return this.getFeatures();
   }
 
   #getFeature = <T>(name: string): T => {

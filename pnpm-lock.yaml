@@ -5,8 +5,8 @@ dependencies:
     specifier: ^0.32.1
     version: 0.32.1(typescript@5.0.4)
   '@mysten/wallet-standard':
-    specifier: ^0.5.3
-    version: 0.5.3(typescript@5.0.4)
+    specifier: ^0.5.4
+    version: 0.5.4
   '@wallet-standard/core':
     specifier: ^1.0.3
     version: 1.0.3
@@ -91,6 +91,12 @@ packages:
       bs58: 5.0.0
     dev: false
 
+  /@mysten/bcs@0.7.1:
+    resolution: {integrity: sha512-wFPb8bkhwrbiStfZMV5rFM7J+umpke59/dNjDp+UYJKykNlW23LCk2ePyEUvGdb62HGJM1jyOJ8g4egE3OmdKA==}
+    dependencies:
+      bs58: 5.0.0
+    dev: false
+
   /@mysten/sui.js@0.32.1(typescript@5.0.4):
     resolution: {integrity: sha512-HD3D/3g//dx5e/1W42krEv4+Zl5PP0faH229jFOhnOktIRGxRrDfb6eU2+juclTug2e68JseTiX2QulIh+2/FQ==}
     engines: {node: '>=16'}
@@ -114,16 +120,32 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@mysten/wallet-standard@0.5.3(typescript@5.0.4):
-    resolution: {integrity: sha512-lEb8MZnmW2Eqfkc28yU9vkVDlMR5okEJGxN0li/JWF6PFqVD2odRCXUlT8mqdzGVMktnTGX4YfB9foTN+apJuA==}
+  /@mysten/sui.js@0.32.2:
+    resolution: {integrity: sha512-/Hm4xkGolJhqj8FvQr7QSHDTlxIvL52mtbOao9f75YjrBh7y1Uh9kbJSY7xiTF1NY9sv6p5hUVlYRJuM0Hvn9A==}
+    engines: {node: '>=16'}
     dependencies:
-      '@mysten/sui.js': 0.32.1(typescript@5.0.4)
+      '@mysten/bcs': 0.7.1
+      '@noble/curves': 1.0.0
+      '@noble/hashes': 1.3.0
+      '@scure/bip32': 1.3.0
+      '@scure/bip39': 1.2.0
+      '@suchipi/femver': 1.0.0
+      jayson: 4.0.0
+      rpc-websockets: 7.5.1
+      superstruct: 1.0.3
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /@mysten/wallet-standard@0.5.4:
+    resolution: {integrity: sha512-T5lS95iWnoLMrIf3kRArLdlYwLf7dNVRfCThvNQiwHPEG35UOGXzDPNLSX6m5WcMOjFIuToIyCWXqVfq97AC3Q==}
+    dependencies:
+      '@mysten/sui.js': 0.32.2
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - bufferutil
-      - encoding
-      - supports-color
-      - typescript
       - utf-8-validate
     dev: false
 
