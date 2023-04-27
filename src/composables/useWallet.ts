@@ -1,5 +1,6 @@
+import { Connection, JsonRpcProvider } from "@mysten/sui.js";
 import { StandardConnectInput, WalletAccount } from "@mysten/wallet-standard";
-import { Ref, computed, ref } from "vue";
+import { computed, ref } from "vue";
 import { Chains, isValidChainKey } from "../constants";
 import {
   IWalletStore,
@@ -11,8 +12,8 @@ import {
 import { LocalStorageKey } from "../types/localStorage";
 import { Feature, IWalletAdapter } from "../wallet/wallet.adapter";
 import { DefaultWallets } from "../wallet/wallet.metadata";
+import { useAutoConnect } from "./useAutoConnect";
 import { useAvailableWallets } from "./useAvailableWallets";
-import { Connection, JsonRpcClient, JsonRpcProvider } from "@mysten/sui.js";
 
 let store: Nullable<IWalletStore> = null;
 
@@ -26,6 +27,7 @@ export const useWallet = (): IWalletStore => {
 
 export const initWallet = (walletStoreProps: IWalletStoreProps): void => {
   store = createWalletStore(walletStoreProps);
+  useAutoConnect({ autoConnect: walletStoreProps.autoConnect });
 };
 
 const createWalletStore = ({
@@ -64,7 +66,6 @@ const createWalletStore = ({
     installed: installedWallets,
     configuredNonDetected: configuredNonDetectedWallets,
   } = useAvailableWallets(DefaultWallets);
-
   // Helper Functions
   async function setStatus(newStatus: IWalletStoreStatus) {
     switch (newStatus) {
@@ -149,12 +150,14 @@ const createWalletStore = ({
 
     try {
       setStatus(IWalletStoreStatus.DISCONNECTING);
+
       await adapter.value.disconnect();
-    } catch (e) {
-      console.error(e, "while disconnecting wallet"); // TODO better error handling
-    } finally {
+
+      localStorage.removeItem(LocalStorageKey.PREV_WALLET_NAME);
       setStatus(IWalletStoreStatus.DISCONNECTED);
       adapter.value = null;
+    } catch (e) {
+      console.error(e, "while disconnecting wallet"); // TODO better error handling
     }
   }
 

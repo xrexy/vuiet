@@ -1,8 +1,8 @@
-import { JsonRpcClient, JsonRpcProvider } from "@mysten/sui.js";
-import { Chain, Nullable, ValidChain } from ".";
-import { IWalletAdapter, WalletAdapter } from "src/wallet/wallet.adapter";
+import { JsonRpcProvider } from "@mysten/sui.js";
+import { StandardConnectOutput, WalletAccount } from "@mysten/wallet-standard";
+import { IWalletAdapter } from "src/wallet/wallet.adapter";
 import { ComputedRef, Ref, ToRefs } from "vue";
-import { StandardConnectOutput, Wallet, WalletAccount } from "@mysten/wallet-standard";
+import { Chain, Nullable, ValidChain } from ".";
 
 export enum IWalletStoreStatus {
   CONNECTED = "connected",
@@ -56,4 +56,5 @@ export type IWalletStore = {
 export type IWalletStoreProps = Partial<{
   chainOverwrite: Partial<Record<ValidChain, Partial<Chain>>>;
   chain: ValidChain;
+  autoConnect: boolean;
 }>;
