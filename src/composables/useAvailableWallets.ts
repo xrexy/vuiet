@@ -48,6 +48,14 @@ export const useAvailableWallets = (def: IWallet[]) => {
       }));
   });
 
+  const configuredNonDetected = computed<IWallet[]>(() => {
+    if (availableAdapters.value.length == 0) return configured.value;
+
+    return configured.value.filter(
+      (w) => !detected.value.find((x) => x.displayName == w.displayName)
+    );
+  });
+
   const installed = computed<IWallet[]>(() =>
     [...configured.value, ...detected.value].filter((w) => w.installed)
   );
@@ -56,5 +64,6 @@ export const useAvailableWallets = (def: IWallet[]) => {
     configured,
     installed,
     detected,
+    configuredNonDetected,
   };
 };

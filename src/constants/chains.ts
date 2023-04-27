@@ -1,4 +1,4 @@
-import { Chain, ValidChain } from "../types";
+import { Chain, ValidChain, ValidChainsArr } from "../types";
 
 export const Chains: Record<ValidChain | "UNKNOWN", Chain> = {
   SUI_DEVNET: {
@@ -27,4 +27,8 @@ export const Chains: Record<ValidChain | "UNKNOWN", Chain> = {
     displayName: "Unknown",
     nodeUrl: "",
   },
+};
+
+export const isValidChainKey = (key: string): key is ValidChain => {
+  return ValidChainsArr.includes(key as any);
 };

@@ -49,6 +49,7 @@ export type IWalletAdapter = WalletWithFeatures<
   signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
   signTransactionBlock: SuiSignTransactionBlockMethod;
   signMessage: SuiSignMessageMethod;
+  hasFeature: (feature: string) => boolean;
 };
 
 export class WalletAdapter implements IWalletAdapter {
@@ -88,14 +89,14 @@ export class WalletAdapter implements IWalletAdapter {
     return this.getFeatures();
   }
 
-  #getFeature = <T>(name: string): T => {
+  getFeature = <T>(name: string): T => {
     const { features } = this.#standardAdapter;
     if (!has(features, name)) throw new Error(`Feature ${name} not found`);
     return (features as any)[name] as T;
   };
 
   async disconnect() {
-    const feat = this.#getFeature<{ disconnect: StandardDisconnectMethod }>(
+    const feat = this.getFeature<{ disconnect: StandardDisconnectMethod }>(
       Feature.DISCONNECT
     );
 
@@ -109,7 +110,7 @@ export class WalletAdapter implements IWalletAdapter {
   async connect(
     input: StandardConnectInput | undefined
   ): Promise<StandardConnectOutput> {
-    const feat = this.#getFeature<{ connect: StandardConnectMethod }>(
+    const feat = this.getFeature<{ connect: StandardConnectMethod }>(
       Feature.CONNECT
     );
 
@@ -125,7 +126,7 @@ export class WalletAdapter implements IWalletAdapter {
     e: StandardEventsNames,
     listener: StandardEventsListeners[StandardEventsNames]
   ) {
-    const feat = this.#getFeature<{ on: StandardEventsOnMethod }>(
+    const feat = this.getFeature<{ on: StandardEventsOnMethod }>(
       Feature.EVENTS
     );
     try {
@@ -138,7 +139,7 @@ export class WalletAdapter implements IWalletAdapter {
   async signAndExecuteTransactionBlock(
     input: SuiSignAndExecuteTransactionBlockInput
   ): Promise<SuiSignAndExecuteTransactionBlockOutput> {
-    const feat = this.#getFeature<{
+    const feat = this.getFeature<{
       signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
     }>(Feature.SUI_SIGN_AND_EXECUTE_TX_BLOCK);
 
@@ -152,7 +153,7 @@ export class WalletAdapter implements IWalletAdapter {
   async signTransactionBlock(
     input: SuiSignTransactionBlockInput
   ): Promise<SuiSignTransactionBlockOutput> {
-    const feat = this.#getFeature<{
+    const feat = this.getFeature<{
       signTransactionBlock: SuiSignTransactionBlockMethod;
     }>(Feature.SUI_SIGN_TX_BLOCK);
 
@@ -164,7 +165,7 @@ export class WalletAdapter implements IWalletAdapter {
   }
 
   async signMessage(input: SuiSignMessageInput): Promise<SuiSignMessageOutput> {
-    const feat = this.#getFeature<{ signMessage: SuiSignMessageMethod }>(
+    const feat = this.getFeature<{ signMessage: SuiSignMessageMethod }>(
       Feature.SUI_SIGN_MESSAGE
     );
 
@@ -174,4 +175,6 @@ export class WalletAdapter implements IWalletAdapter {
       throw new Error(err.message); // TODO better errors
     }
   }
+
+  hasFeature = (feature: string) => has(this.#standardAdapter.features, feature);
 }
