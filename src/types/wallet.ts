@@ -1,5 +1,14 @@
 import { JsonRpcProvider } from "@mysten/sui.js";
-import { StandardConnectOutput, WalletAccount } from "@mysten/wallet-standard";
+import {
+  StandardConnectOutput,
+  SuiSignAndExecuteTransactionBlockInput,
+  SuiSignAndExecuteTransactionBlockOutput,
+  SuiSignMessageInput,
+  SuiSignMessageOutput,
+  SuiSignTransactionBlockInput,
+  SuiSignTransactionBlockOutput,
+  WalletAccount,
+} from "@mysten/wallet-standard";
 import { IWalletAdapter } from "src/wallet/wallet.adapter";
 import { ComputedRef, Ref, ToRefs } from "vue";
 import { Chain, Nullable, ValidChain } from ".";
@@ -21,7 +30,7 @@ export type IWallet = {
 };
 
 export type IWalletStore = {
-  provider: SuiProvider
+  provider: SuiProvider;
   adapter: Ref<Nullable<IWalletAdapter>>;
 
   // Connectivity
@@ -44,13 +53,23 @@ export type IWalletStore = {
 
   // Computed
   accounts: ComputedRef<readonly WalletAccount[]>;
-  account: ComputedRef<Nullable<WalletAccount>>
-  address: ComputedRef<Nullable<string>>
+  account: ComputedRef<Nullable<WalletAccount>>;
+  address: ComputedRef<Nullable<string>>;
 
   // Functions
   select: (walletName: string) => Promise<void>;
   connect: (adapter: IWalletAdapter) => Promise<StandardConnectOutput>;
   disconnect: () => Promise<void>;
+
+  signMessage(
+    input: Omit<SuiSignMessageInput, "account">
+  ): Promise<SuiSignMessageOutput>;
+  signTransactionBlock(
+    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignTransactionBlockOutput>;
+  signAndExecuteTransactionBlock(
+    input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 };
 
 export type IWalletStoreProps = Partial<{

@@ -1,7 +1,9 @@
+import { IdentifierString } from "@wallet-standard/core";
+
 export type Chain = {
   nodeUrl: string;
   displayName: string;
-  key: string;
+  key: IdentifierString;
   faucetUrl?: string;
 };
 

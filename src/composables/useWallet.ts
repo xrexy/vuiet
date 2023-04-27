@@ -1,5 +1,14 @@
 import { Connection, JsonRpcProvider } from "@mysten/sui.js";
-import { StandardConnectInput, WalletAccount } from "@mysten/wallet-standard";
+import {
+  StandardConnectInput,
+  SuiSignAndExecuteTransactionBlockInput,
+  SuiSignAndExecuteTransactionBlockOutput,
+  SuiSignMessageInput,
+  SuiSignMessageOutput,
+  SuiSignTransactionBlockInput,
+  SuiSignTransactionBlockOutput,
+  WalletAccount,
+} from "@mysten/wallet-standard";
 import { computed, ref } from "vue";
 import { Chains, isValidChainKey } from "../constants";
 import {
@@ -52,6 +61,8 @@ const createWalletStore = ({
 
     Object.freeze(Chains);
   }
+
+  const selectedChain = Chains[chain];
 
   const connecting = ref(false);
   const connected = ref(false);
@@ -161,6 +172,49 @@ const createWalletStore = ({
     }
   }
 
+  async function signMessage(
+    input: Omit<SuiSignMessageInput, "account">
+  ): Promise<SuiSignMessageOutput> {
+    if (!adapter.value || !account.value) {
+      throw new Error("No wallet connected");
+    }
+
+    return adapter.value.signMessage({
+      message: input.message,
+      account: account.value,
+    });
+  }
+
+  async function signTransactionBlock(
+    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignTransactionBlockOutput> {
+    if (!adapter.value || !account.value) {
+      throw new Error("No wallet connected");
+    }
+
+    return adapter.value.signTransactionBlock({
+      account: account.value,
+      chain: selectedChain.key,
+      transactionBlock: input.transactionBlock,
+    });
+  }
+
+  async function signAndExecuteTransactionBlock(
+    input: SuiSignAndExecuteTransactionBlockInput
+  ): Promise<SuiSignAndExecuteTransactionBlockOutput> {
+    if (!adapter.value || !account.value) {
+      throw new Error("No wallet connected");
+    }
+
+    return adapter.value.signAndExecuteTransactionBlock({
+      account: account.value,
+      chain: selectedChain.key,
+      transactionBlock: input.transactionBlock,
+      options: input.options,
+      requestType: input.requestType,
+    })
+  }
+
   const accounts = computed<readonly WalletAccount[]>(() => {
     if (!adapter.value) return [];
     return adapter.value.accounts;
@@ -173,7 +227,8 @@ const createWalletStore = ({
 
   const address = computed(() => account.value?.address);
 
-  const selectedChain = Chains[chain];
+
+
   return {
     provider: new JsonRpcProvider(
       new Connection({
@@ -205,5 +260,9 @@ const createWalletStore = ({
     select,
     connect,
     disconnect,
+
+    signMessage,
+    signTransactionBlock,
+    signAndExecuteTransactionBlock
   };
 };
