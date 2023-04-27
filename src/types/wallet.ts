@@ -72,8 +72,12 @@ export type IWalletStore = {
   ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 };
 
+export type IWalletStoreChainOverwrite = Partial<
+  Record<ValidChain, Partial<Chain>>
+>;
+
 export type IWalletStoreProps = Partial<{
-  chainOverwrite: Partial<Record<ValidChain, Partial<Chain>>>;
+  chainOverwrite: IWalletStoreChainOverwrite;
   chain: ValidChain;
   autoConnect: boolean;
 }>;

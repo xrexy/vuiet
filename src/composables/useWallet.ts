@@ -13,6 +13,7 @@ import { computed, ref } from "vue";
 import { Chains, isValidChainKey } from "../constants";
 import {
   IWalletStore,
+  IWalletStoreChainOverwrite,
   IWalletStoreProps,
   IWalletStoreStatus,
   Nullable,
@@ -39,28 +40,32 @@ export const initWallet = (walletStoreProps: IWalletStoreProps): void => {
   useAutoConnect({ autoConnect: walletStoreProps.autoConnect });
 };
 
+/**
+ * Overwrite default chain values with user provided values, then freeze the object to prevent further changes.
+ */
+function handleChainOverwrites(input: Nullable<IWalletStoreChainOverwrite>) {
+  if (input) {
+    for (const [key, newValue] of Object.entries(input)) {
+      if (!isValidChainKey(key)) continue;
+
+      const chain = Chains[key];
+      chain.nodeUrl = newValue.nodeUrl || chain.nodeUrl;
+      chain.displayName = newValue.displayName || chain.displayName;
+      chain.key = newValue.key || chain.key;
+      chain.faucetUrl = newValue.faucetUrl || chain.faucetUrl;
+
+      // console.log(`Overwrote chain ${key}, new value is:`, chain);
+    }
+  }
+
+  Object.freeze(Chains);
+}
+
 const createWalletStore = ({
   chainOverwrite,
   chain = "SUI_DEVNET",
 }: IWalletStoreProps): IWalletStore => {
-  // Overwrite default chain values with user provided values, then freeze the object to prevent further changes.
-  {
-    if (chainOverwrite) {
-      for (const [key, newValue] of Object.entries(chainOverwrite)) {
-        if (!isValidChainKey(key)) continue;
-
-        const chain = Chains[key];
-        chain.nodeUrl = newValue.nodeUrl || chain.nodeUrl;
-        chain.displayName = newValue.displayName || chain.displayName;
-        chain.key = newValue.key || chain.key;
-        chain.faucetUrl = newValue.faucetUrl || chain.faucetUrl;
-
-        // console.log(`Overwrote chain ${key}, new value is:`, chain);
-      }
-    }
-
-    Object.freeze(Chains);
-  }
+  handleChainOverwrites(chainOverwrite);
 
   const selectedChain = Chains[chain];
 
@@ -124,8 +129,6 @@ const createWalletStore = ({
       );
     }
 
-    console.log(target, "target");
-
     await connect(target.adapter!);
   }
 
@@ -137,7 +140,6 @@ const createWalletStore = ({
 
     setStatus(IWalletStoreStatus.CONNECTING);
     try {
-      console.log(connectionAdapter, "connectionAdapter");
       const connectionRes = await connectionAdapter.connect(connectionOptions);
 
       adapter.value = connectionAdapter;
@@ -155,7 +157,6 @@ const createWalletStore = ({
   }
 
   async function disconnect() {
-    console.log(adapter.value, adapter.value?.features);
     if (!adapter.value) return; // Nothing to disconnect from
     if (!adapter.value.hasFeature(Feature.DISCONNECT)) return; // Adapter does not support disconnecting
 
@@ -212,7 +213,7 @@ const createWalletStore = ({
       transactionBlock: input.transactionBlock,
       options: input.options,
       requestType: input.requestType,
-    })
+    });
   }
 
   const accounts = computed<readonly WalletAccount[]>(() => {
@@ -226,8 +227,6 @@ const createWalletStore = ({
   });
 
   const address = computed(() => account.value?.address);
-
-
 
   return {
     provider: new JsonRpcProvider(
@@ -263,6 +262,6 @@ const createWalletStore = ({
 
     signMessage,
     signTransactionBlock,
-    signAndExecuteTransactionBlock
+    signAndExecuteTransactionBlock,
   };
 };
