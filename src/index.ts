@@ -2,7 +2,10 @@ import { App } from "vue";
 import { initWallet, useWallet } from "./composables/useWallet.js";
 import { IWalletStoreProps } from "./types";
 
-export * from "./composables/useWallet.js";
+export * from "./composables/";
+export * from "./constants/";
+export * from "./types/";
+export * from "./wallet/";
 
 /**
  * Vue plugin for the Sui Wallet
