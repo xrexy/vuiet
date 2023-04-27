@@ -26,8 +26,6 @@ export function useAutoConnect(
     const lastWallet = localStorage.getItem(LocalStorageKey.PREV_WALLET_NAME);
     if (!lastWallet) return;
 
-    console.log(lastWallet)
-
     hasAttemptedAutoConnect.value = true;
 
     (async () => {
