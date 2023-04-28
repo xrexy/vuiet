@@ -20,6 +20,15 @@ body,
   @apply h-full bg-v-gray-900;
 }
 
+#app {
+  background: rgb(0, 180, 216);
+  background: radial-gradient(
+    circle,
+    rgba(0, 180, 216, 0.2) 0%,
+    rgba(19, 20, 23, 1) 69%
+  );
+}
+
 /* box-sizing fix */
 *,
 *::before,

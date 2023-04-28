@@ -1,6 +1,5 @@
 <template>
   <div
-    id="home"
     class="gap-y-20 text-v-gray-100 h-full w-full flex flex-col justify-between py-16 items-center"
   >
     <!-- Wallets -->
@@ -44,9 +43,9 @@
       <div class="flex items-center gap-x-4">
         <RouterLink class="example-btn" to="/demo/minimal">Minimal</RouterLink>
         <p>...or</p>
-        <RouterLink class="example-btn" to="/demo/plug_and_play"
-          >Plug & Play</RouterLink
-        >
+        <RouterLink class="example-btn" to="/demo/plug_and_play">
+          Plug & Play
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -69,15 +68,6 @@ h1 {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-#home {
-  background: rgb(0, 180, 216);
-  background: radial-gradient(
-    circle,
-    rgba(0, 180, 216, 0.2) 0%,
-    rgba(19, 20, 23, 1) 69%
-  );
 }
 
 .example-btn {
