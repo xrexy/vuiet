@@ -44,8 +44,8 @@ export function useCoinBalance(
     }
   });
 
-  const balance = computed<Nullable<string>>(
-    () => coinBalance?.value?.totalBalance
+  const balance = computed<string>(
+    () => coinBalance?.value?.totalBalance || "0"
   );
 
   return { coinBalance, fetching, balance };
