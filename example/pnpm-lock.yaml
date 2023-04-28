@@ -7,6 +7,9 @@ dependencies:
   vue-router:
     specifier: ^4.1.6
     version: 4.1.6(vue@3.2.47)
+  vue3-code-block:
+    specifier: ^2.1.0
+    version: 2.1.0(vue@3.2.47)
   vuiet:
     specifier: file:../src
     version: file:../src
@@ -698,6 +701,11 @@ packages:
     hasBin: true
     dev: true
 
+  /highlight.js@11.7.0:
+    resolution: {integrity: sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   /inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
     dependencies:
@@ -934,6 +942,11 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
+  /prismjs@1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: false
+
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
@@ -1084,6 +1097,10 @@ packages:
     hasBin: true
     dev: true
 
+  /ua-parser-js@1.0.35:
+    resolution: {integrity: sha512-fKnGuqmTBnIE+/KXSzCn4db8RTigUzw1AN0DmdU6hJovUTbYJKyqj+8Mt1c4VfRDnOVJnENmfYkIPZ946UrSAA==}
+    dev: false
+
   /update-browserslist-db@1.0.11(browserslist@4.21.5):
     resolution: {integrity: sha512-dCwEFf0/oT85M1fHBg4F0jtLwJrutGoHSQXCh7u4o2t1drG+c0a9Flnqww6XUKSfQMPpJBRjU8d4RXB09qtvaA==}
     hasBin: true
@@ -1158,6 +1175,18 @@ packages:
       semver: 7.5.0
       typescript: 5.0.2
     dev: true
+
+  /vue3-code-block@2.1.0(vue@3.2.47):
+    resolution: {integrity: sha512-O9CXJ712+G2P1svJKndJ94Gk+O6NWg4/29NTaBaIwqoISl48yO3EkMghuNtqJ4i4Hgcx5L45PVaCnCVZtELNGg==}
+    engines: {node: 19.0.1}
+    peerDependencies:
+      vue: ^3.2.47
+    dependencies:
+      highlight.js: 11.7.0
+      prismjs: 1.29.0
+      ua-parser-js: 1.0.35
+      vue: 3.2.47
+    dev: false
 
   /vue@3.2.47:
     resolution: {integrity: sha512-60188y/9Dc9WVrAZeUVSDxRQOZ+z+y5nO2ts9jWXSTkMvayiWxCWOWtBQoYjLeccfXkiiPZWAHcV+WTPhkqJHQ==}

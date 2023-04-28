@@ -1,45 +1,84 @@
 <template>
-    <h1>Vuiet Example</h1>
-  
+  <div
+    class="text-v-gray-100 h-full w-full flex flex-col justify-between py-16 items-center"
+  >
+    <!-- Title -->
+    <h1 class="title-gradient font-black text-6xl tracking-wider">
+      Minimal Example
+    </h1>
+
     <div>
-      <h2>Accounts</h2>
-      <div v-if="$wallet.address.value">
-        <p @click="$wallet.disconnect()">
-          Address: <b>{{ $wallet.address.value }}</b>
-        </p>
-        <p>
-          SUI Balance: <b>{{ balance || 0 }}</b>
-        </p>
+      <div>
+        <div class="font-semibold flex justify-between px-4 pb-2">
+          <div>
+            <p class="underline cursor-help" v-if="$wallet.address.value" :title="$wallet.address.value" >
+              Logged In
+            </p>
+            <p v-else> Not Logged In </p>
+          </div>
+          <p>Balance: {{ fetchingBalance ? '...' : balance }} SUI</p>
+        </div>
+        <CodeBlock
+          :highlightjs="true"
+          :code="codeblocks.minimal"
+          theme="tokyo-night-dark"
+          lang="html"
+        />
       </div>
-      <p v-else>Not connected</p>
-    </div>
-  
-    <div>
-      <h2>Wallets</h2>
-      <p v-if="$wallet.connected.value">
-        Connected with: <b>{{ $wallet.adapter.value.name }}</b>
-      </p>
-      <ul v-else>
-        <li
-          v-for="wallet of $wallet.wallets.detected.value"
-          @click="connectToWallet(wallet.displayName)"
+      <div class="w-full h-fit flex justify-center">
+        <button
+          v-if="$wallet.connected.value"
+          :disabled="$wallet.connecting.value || $wallet.disconnecting.value"
+          class="border-2 border-v-blue-600 px-4 py-2 rounded-lg hover:bg-v-blue-200/10"
+          @click="$wallet.disconnect()"
         >
-          {{ wallet.displayName }} <b>(Detected)</b>
-        </li>
-        <li v-for="wallet of $wallet.wallets.configuredNonDetected.value">
-          {{ wallet.displayName }}
-        </li>
-      </ul>
+          Disconnect
+        </button>
+        <button
+          v-else
+          :disabled="$wallet.connecting.value || $wallet.disconnecting.value"
+          class="border-2 border-v-blue-600 px-4 py-2 rounded-lg hover:bg-v-blue-200/10"
+          @click="$wallet.select('Suiet')"
+        >
+          Connect (Suiet)
+        </button>
+      </div>
     </div>
-  </template>
-  <script lang="ts" setup>
-  import { useWallet, useCoinBalance } from "../../../../src/composables";
-  
-  const $wallet = useWallet();
+
+    <!-- "Flavors" -->
+    <div class="flex flex-col items-center gap-y-4">
+      <p class="font-bold text-xl text-v-blue-400">Where to?</p>
+      <div class="flex items-center gap-x-4">
+        <RouterLink class="example-btn" to="/">Home</RouterLink>
+        <p>...or</p>
+        <RouterLink class="example-btn" to="/demo/plug_and_play">
+          Plug & Play
+        </RouterLink>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useCoinBalance, useWallet } from "../../../../src";
+
+const $wallet = useWallet();
+const { balance, fetching: fetchingBalance } = useCoinBalance();
+
+// This is one of the hackiest things I've ever done. If you know a better way, PLEASE open a PR.
+const lt = "<";
+
+const codeblocks = {
+  minimal: `${lt}template>
+  ${lt}p @click="$wallet.disconnect()">Address: {{ $wallet.address }}${lt}/p>
+  ${lt}p>Balance: {{ balance }}b${lt}/p>
+
+  ${lt}button @click="$wallet.select('Suiet')">Connect (Suiet)${lt}/button>
+${lt}/template>
+
+${lt}script setup>
+  const $wallet = useWallet()
   const { balance } = useCoinBalance();
-  
-  const connectToWallet = async (walletName: string) => {
-    await $wallet.select(walletName);
-  };
-  </script>
-  
+${lt}/script>`,
+};
+</script>

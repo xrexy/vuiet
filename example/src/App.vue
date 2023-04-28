@@ -11,3 +11,18 @@
     </a>
   </div>
 </template>
+
+<style>
+h1.title-gradient {
+  background: rgb(0, 180, 216);
+  background: linear-gradient(
+    140deg,
+    rgba(0, 180, 216, 1) 0%,
+    rgba(102, 210, 232, 1) 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>

@@ -29,6 +29,10 @@ body,
   );
 }
 
+.example-btn {
+  @apply font-bold border-2 border-v-blue-600 px-6 py-2 rounded-lg hover:bg-v-blue-300/10;
+}
+
 /* box-sizing fix */
 *,
 *::before,

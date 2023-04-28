@@ -1,6 +1,6 @@
 <template>
   <div
-    class="gap-y-20 text-v-gray-100 h-full w-full flex flex-col justify-between py-16 items-center"
+    class="text-v-gray-100 h-full w-full flex flex-col justify-between py-16 items-center"
   >
     <!-- Wallets -->
     <div class="text-center">
@@ -31,7 +31,7 @@
 
     <!-- Title -->
     <div class="flex flex-col items-center gap-4">
-      <h1 class="text-v-blue-500 font-black text-6xl tracking-wider">Vuiet</h1>
+      <h1 class="title-gradient font-black text-6xl tracking-wider">Vuiet</h1>
       <p class="text-lg px-4 sm:p-0 text-center">
         A minimal wallet manager for the Sui blockchain.
       </p>
@@ -56,21 +56,3 @@ import { useWallet } from "../../../src";
 
 const $wallet = useWallet();
 </script>
-<style scoped>
-h1 {
-  background: rgb(0, 180, 216);
-  background: linear-gradient(
-    140deg,
-    rgba(0, 180, 216, 1) 0%,
-    rgba(102, 210, 232, 1) 100%
-  );
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.example-btn {
-  @apply font-bold border-2 border-v-blue-600 px-6 py-2 rounded-lg hover:bg-v-blue-300/10;
-}
-</style>

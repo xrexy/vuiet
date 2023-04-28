@@ -4,10 +4,14 @@ import App from "./App.vue";
 import "./style.css";
 import { createRouter, createWebHistory } from "vue-router";
 import { VueRoute } from "./types";
+import CodeBlock from "vue3-code-block";
 
 const demoRoutes: VueRoute[] = [
   { path: "/minimal", component: () => import("./pages/demo/Minimal.vue") },
-  { path: "/plug_and_play", component: () => import("./pages/demo/PlugAndPlay.vue") },
+  {
+    path: "/plug_and_play",
+    component: () => import("./pages/demo/PlugAndPlay.vue"),
+  },
 ].map((x) => ({ ...x, path: `/demo${x.path}` }));
 
 const router = createRouter({
@@ -20,7 +24,9 @@ const router = createRouter({
 
 createApp(App)
   .use(router)
+  .use(CodeBlock, )
   .use(SuiWallet, {
+    autoConnect: false,
     chainOverwrite: {
       SUI_DEVNET: {
         faucetUrl: "https://faucet.devnet.sui.io/gas",

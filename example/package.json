@@ -11,6 +11,7 @@
   "dependencies": {
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
+    "vue3-code-block": "^2.1.0",
     "vuiet": "file:../src"
   },
   "devDependencies": {

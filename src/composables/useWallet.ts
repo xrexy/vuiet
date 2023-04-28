@@ -120,12 +120,21 @@ const createWalletStore = ({
     );
 
     if (!target) {
-      const installedWalletsNames = installedWallets.value
-        .map((w) => w.displayName)
-        .join(", ");
+      const installedWalletsNames = installedWallets.value.map(
+        (w) => w.displayName
+      );
+
+      if (installedWalletsNames.length == 0)
+        throw new Error(
+          `No wallets installed. Please install a wallet first. Valid wallets are: ${configuredWallets.value
+            .map((w) => w.displayName)
+            .join(", ")}`
+        );
 
       throw new Error(
-        `Wallet ${walletName} not found. (Valid wallets are: ${installedWalletsNames})`
+        `Wallet ${walletName} not found. (Valid wallets are: ${installedWalletsNames.join(
+          ", "
+        )})`
       );
     }
 
