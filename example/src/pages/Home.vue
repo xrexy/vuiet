@@ -42,7 +42,7 @@
     <div class="flex flex-col items-center gap-y-4">
       <p class="font-bold text-xl text-v-blue-400">Choose your flavor</p>
       <div class="flex items-center gap-x-4">
-        <RouterLink class="example-btn" to="/demo/mini">Minimal</RouterLink>
+        <RouterLink class="example-btn" to="/demo/minimal">Minimal</RouterLink>
         <p>...or</p>
         <RouterLink class="example-btn" to="/demo/plug_and_play"
           >Plug & Play</RouterLink
