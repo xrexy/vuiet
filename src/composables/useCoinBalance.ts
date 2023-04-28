@@ -1,8 +1,7 @@
-import { CoinBalance, SUI_TYPE_ARG } from "@mysten/sui.js";
-import { Chains, isValidChainKey } from "../constants";
-import { ComputedRef, Ref, computed, ref, watch } from "vue";
-import { useWallet } from "./useWallet";
+import { CoinBalance } from "@mysten/sui.js";
 import { Nullable } from "src/types";
+import { ComputedRef, Ref, computed, ref, watch, watchEffect } from "vue";
+import { useWallet } from "./useWallet";
 
 export type UseCoinBalanceOptions = Partial<{
   coinType: Nullable<string>;
@@ -10,7 +9,7 @@ export type UseCoinBalanceOptions = Partial<{
 
 export type UseCoinBalanceOutput = {
   coinBalance: Ref<Nullable<CoinBalance>>;
-  balance: ComputedRef<Nullable<string>>;
+  balance: ComputedRef<string>;
   fetching: Ref<boolean>;
 };
 
@@ -33,7 +32,8 @@ export function useCoinBalance(
     });
   }
 
-  watch($wallet.address, (address) => {
+  watchEffect(() => { 
+    const address = $wallet.address.value;
     if (address && address.length > 1) {
       fetching.value = true;
       fetchBalance(address)
