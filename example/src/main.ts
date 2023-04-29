@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import SuiWallet from "../../src/index";
+import SuiWallet from "vuiet";
 import App from "./App.vue";
 import "./style.css";
 import { createRouter, createWebHistory } from "vue-router";
@@ -26,7 +26,7 @@ createApp(App)
   .use(router)
   .use(CodeBlock, )
   .use(SuiWallet, {
-    autoConnect: false,
+    autoConnect: true,
     chainOverwrite: {
       SUI_DEVNET: {
         faucetUrl: "https://faucet.devnet.sui.io/gas",

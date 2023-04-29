@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { useWallet } from "../../../src";
+import {  } from "vuiet/composables";
 
 const $wallet = useWallet();
 </script>

@@ -17,7 +17,7 @@
 html,
 body,
 #app {
-  @apply h-full bg-v-gray-900;
+  @apply h-full bg-v-gray-900 text-v-gray-100;
 }
 
 #app {

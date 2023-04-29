@@ -38,7 +38,7 @@
           v-else
           :disabled="$wallet.connecting.value || $wallet.disconnecting.value"
           class="border-2 border-v-blue-600 px-4 py-2 rounded-lg hover:bg-v-blue-200/10"
-          @click="$wallet.select('Suiet')"
+          @click="handleConnect()"
         >
           Connect (Suiet)
         </button>
@@ -81,4 +81,13 @@ ${lt}script setup>
   const { balance } = useCoinBalance();
 ${lt}/script>`,
 };
+
+function handleConnect(walletName = 'Suiet') {
+  if(!$wallet.wallets.installed.value.find(x => x.displayName == walletName)) {
+    alert('Wallet not installed');
+    return;
+  }
+
+  $wallet.select(walletName);
+}
 </script>
