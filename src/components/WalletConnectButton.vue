@@ -14,7 +14,7 @@
       </div>
     </slot>
     <slot name="disconnected" v-else>
-      <button @click="onConnect()">Connect</button>
+      <button class="border-2 border-v-blue-600 px-4 py-2 rounded-lg hover:bg-v-blue-200/10" @click="onConnect()">Connectuasad</button>
     </slot>
   </slot>
 </template>

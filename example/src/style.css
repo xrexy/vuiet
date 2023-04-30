@@ -32,21 +32,6 @@ body,
   );
 }
 
-.example-btn {
-  /* @apply font-bold border-2 border-v-blue-600 px-6 py-2 rounded-lg hover:bg-v-blue-300/10; */
-  font-weight: 700;
-  border-width: 2px;
-  border-color: #0090ad;
-  border-radius: 0.5rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.example-btn:hover {
-  /* @apply bg-v-blue-300/10; */
-  background-color: rgba(0, 180, 216, 0.1);
-} 
-
 /* box-sizing fix */
 *,
 *::before,

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="text-v-gray-100 h-full w-full flex flex-col justify-between py-16 items-center"
-  >
+  <div class="text-v-gray-100 h-full w-full flex flex-col justify-between py-16 items-center">
     <!-- Wallets -->
     <div class="text-center">
       <p class="font-bold text-xl text-v-blue-400 pb-4">Supported Wallets</p>
@@ -15,9 +13,7 @@
           <p class="font-bold">{{ wallet.displayName }}</p>
         </li>
         <li class="flex items-center gap-2">
-          <div
-            class="w-12 h-12 bg-v-blue-800/75 rounded-full flex items-center justify-center"
-          >
+          <div class="w-12 h-12 bg-v-blue-800/75 rounded-full flex items-center justify-center">
             <svg class="w-8 h-8 text-v-blue-400/50" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -38,21 +34,18 @@
       </p>
     </div>
 
-    <!-- "Flavors" -->
-    <div class="flex flex-col items-center gap-y-4">
-      <p class="font-bold text-xl text-v-blue-400">Choose your flavor</p>
-      <div class="flex items-center gap-x-4">
-        <RouterLink class="example-btn" to="/demo/minimal">Minimal</RouterLink>
-        <p>...or</p>
-        <RouterLink class="example-btn" to="/demo/plug_and_play">
-          Plug & Play
-        </RouterLink>
-      </div>
-    </div>
+    <Flavors
+      :items="[
+        { title: 'Minimal', redirect: '/demo/minimal' },
+        { title: 'Plugin & Play', redirect: '/demo/plug_and_play' }
+      ]"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useWallet } from "vuiet";
-const $wallet = useWallet();
+import { useWallet } from 'vuiet'
+import Flavors from '../components/FlavorsComponent.vue'
+
+const $wallet = useWallet()
 </script>

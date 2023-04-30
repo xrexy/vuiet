@@ -25,7 +25,7 @@ const router = createRouter({
 
 createApp(App)
   .use(router)
-  .use(CodeBlock, )
+  .use(CodeBlock)
   .use(SuiWallet, {
     autoConnect: true,
     chainOverwrite: {

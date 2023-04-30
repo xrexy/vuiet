@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <div class="bg-black/25 backdrop-blur-sm w-screen h-screen absolute top-0 left-0 flex items-center justify-center" v-if="isOpen">
+    <div class="bg-black/25 backdrop-blur-sm w-screen h-screen absolute top-0 left-0 flex items-center justify-center z-[100]" v-if="isOpen">
       <div ref="modalRef" class="bg-white w-[25vw] rounded-lg shadow-md shadow-v-gray-700 text-v-gray-700 relative">
         <slot></slot>
       </div>

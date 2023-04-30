@@ -7,7 +7,7 @@
     "dev": "vite --open --port 3000",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "start": "serve dist -s -n -L -p $PORT" 
+    "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
     "@vueuse/core": "^10.1.0",
