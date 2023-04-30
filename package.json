@@ -28,7 +28,7 @@
     "format": "prettier --write src/",
     "semantic-release": "semantic-release",
     "ci:publish": "pnpm publish -r --no-git-checks --access public",
-    "ci:exp-publish": "pnpm publish -r--no-git-checks --access public --tag experimental"
+    "ci:exp-publish": "pnpm publish -r --no-git-checks --access public --tag experimental"
   },
   "dependencies": {
     "@mysten/sui.js": "^0.32.2",
