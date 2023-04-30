@@ -1,6 +1,6 @@
 {
   "name": "vuiet",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Minimal wallet manager for Sui blockhain for Vue 3",
   "author": "xrexy",
   "license": "MIT",
@@ -11,14 +11,15 @@
     "vite.config.ts"
   ],
   "main": "./dist/vuiet.umd.js",
-  "module": "./dist/vuiet.es.js",
-  "typings": "./dist/vuiet.d.ts",
+  "module": "./dist/vuiet.mjs",
+  "typings": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/vuiet.es.js",
+      "import": "./dist/vuiet.mjs",
       "require": "./dist/vuiet.umd.js"
     },
-    "./tailwind.config.js": "./tailwind.config.js"
+    "./tailwind.config.js": "./tailwind.config.js",
+    "./vite.config.ts": "./vite.config.ts"
   },
   "scripts": {
     "dev": "vite",
@@ -28,7 +29,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "semantic-release": "semantic-release",
-    "lib:publish": "pnpm publish -r --no-git-checks --access public"
+    "lib:publish": "pnpm run build && pnpm publish -r --no-git-checks --access public"
   },
   "dependencies": {
     "@mysten/sui.js": "^0.32.2",
