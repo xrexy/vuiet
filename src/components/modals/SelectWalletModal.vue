@@ -47,8 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import { ModalWrapper, WalletListItem } from '@/components'
-import { useWallet } from '@/composables'
+import { ModalWrapper, WalletListItem } from '..'
+import { useWallet } from '../../composables'
 import { computed } from 'vue'
 
 const $wallet = useWallet()

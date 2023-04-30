@@ -1,4 +1,4 @@
-import type { IWallet } from '@/types'
+import type { IWallet } from '../types'
 
 const createWalletMetadata = (walletPreset: IWallet) => Object.freeze(walletPreset)
 

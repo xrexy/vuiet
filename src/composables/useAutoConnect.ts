@@ -1,5 +1,5 @@
 import { type Ref, ref, watchEffect } from 'vue'
-import { LocalStorageKey } from '@/types'
+import { LocalStorageKey } from '../types'
 import { useWallet } from '.'
 
 export type UseAutoConnectOptions = Partial<{

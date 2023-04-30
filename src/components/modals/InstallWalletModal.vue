@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IWallet } from "@/types";
+import type { IWallet } from "../../types";
 import type { PropType } from "vue";
 import { ModalWrapper } from "..";
 

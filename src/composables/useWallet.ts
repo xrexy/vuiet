@@ -10,13 +10,17 @@ import type {
   WalletAccount
 } from '@mysten/wallet-standard'
 import { computed, ref } from 'vue'
-import { Chains, isValidChainKey } from '@/constants'
-import type { IWalletStore, IWalletStoreChainOverwrite, IWalletStoreProps, Nullable } from '@/types'
-import { IWalletStoreStatus, ValidChainsArr } from '@/types'
-import { LocalStorageKey } from '@/types'
-import { Feature, DefaultWallets, type IWalletAdapter } from '@/wallet'
 import { useAutoConnect, useAvailableWallets } from '.'
-import {} from './useAutoConnect'
+import { Chains, isValidChainKey } from '../constants'
+import type {
+  IWalletStore,
+  IWalletStoreChainOverwrite,
+  IWalletStoreProps,
+  Nullable
+} from '../types'
+import { IWalletStoreStatus, LocalStorageKey, ValidChainsArr } from '../types'
+import { DefaultWallets, Feature, type IWalletAdapter } from '../wallet'
+import { } from './useAutoConnect'
 
 let store: Nullable<IWalletStore> = null
 

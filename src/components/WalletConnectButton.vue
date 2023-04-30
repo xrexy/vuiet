@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCoinBalance, useWallet } from '@/composables'
+import { useCoinBalance, useWallet } from '../composables'
 import { computed, type PropType } from 'vue'
 
 const $wallet = useWallet()

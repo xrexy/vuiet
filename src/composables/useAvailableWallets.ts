@@ -1,4 +1,4 @@
-import type { IWallet } from "@/types";
+import type { IWallet } from "../types";
 import { computed } from "vue";
 import { useWalletAdaptersDetection } from "./useWalletAdaptersDetection";
 

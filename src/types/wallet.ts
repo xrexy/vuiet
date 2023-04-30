@@ -9,7 +9,7 @@ import type {
   SuiSignTransactionBlockOutput,
   WalletAccount
 } from '@mysten/wallet-standard'
-import type { IWalletAdapter } from '@/wallet'
+import type { IWalletAdapter } from '../wallet'
 import type { ComputedRef, Ref, ToRefs } from 'vue'
 import type { Chain, Nullable, ValidChain } from '.'
 

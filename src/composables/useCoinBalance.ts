@@ -1,6 +1,6 @@
-import type { Nullable } from '@/types'
 import type { CoinBalance } from '@mysten/sui.js'
 import { computed, ref, watchEffect, type ComputedRef, type Ref } from 'vue'
+import type { Nullable } from '../types'
 import { useWallet } from './useWallet'
 
 export type UseCoinBalanceOptions = Partial<{

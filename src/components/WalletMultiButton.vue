@@ -40,8 +40,8 @@ import {
   SelectWalletModal,
   WalletConnectButton
 } from '.'
-import { useWallet } from '@/composables'
-import type { IWallet, Nullable } from '@/types'
+import { useWallet } from '../composables'
+import type { IWallet, Nullable } from '../types'
 
 enum WalletModalType {
   SELECT = 'select_modal',

@@ -3,15 +3,13 @@
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.d.ts", "src/**/*.tsx"],
   "compilerOptions": {
     "baseUrl": ".",
+    "esModuleInterop": true,
     "outDir": "dist",
 
     "declaration": true,
     "skipLibCheck": true,
     "lib": ["esnext", "dom"],
-
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "moduleResolution": "node",
   },
 
   "references": [

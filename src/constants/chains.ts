@@ -1,4 +1,4 @@
-import { ValidChainsArr, type Chain, type ValidChain } from "@/types";
+import { ValidChainsArr, type Chain, type ValidChain } from "../types";
 
 export const Chains: Record<ValidChain | "UNKNOWN", Chain> = {
   SUI_DEVNET: {

@@ -1,6 +1,6 @@
 import { getWallets, type Wallet, type Wallets } from '@wallet-standard/core'
 import { ref, watchEffect } from 'vue'
-import { type IWalletAdapter, WalletAdapter } from '@/wallet'
+import { WalletAdapter, type IWalletAdapter } from '../wallet'
 
 const isWalletCompatible = (w: Wallet) =>
   ['standard:connect', 'standard:events', 'sui:signMessage'].every((x) => x in w.features)

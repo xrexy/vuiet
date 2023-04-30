@@ -55,4 +55,5 @@
 <script setup lang="ts">
 import { useWallet } from "vuiet";
 const $wallet = useWallet();
+
 </script>
