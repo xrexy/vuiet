@@ -1,6 +1,6 @@
 {
   "name": "vuiet",
-  "version": "v0.0.0-experimental",
+  "version": "0.0.6",
   "description": "Minimal wallet manager for Sui blockhain for Vue 3",
   "author": "xrexy",
   "license": "MIT",
@@ -27,8 +27,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "semantic-release": "semantic-release",
-    "ci:publish": "pnpm publish -r --no-git-checks --access public",
-    "ci:exp-publish": "pnpm publish -r --no-git-checks --access public --tag experimental"
+    "lib:publish": "pnpm publish -r --no-git-checks --access public"
   },
   "dependencies": {
     "@mysten/sui.js": "^0.32.2",
