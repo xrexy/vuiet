@@ -1,5 +1,5 @@
-import { Connection, JsonRpcProvider } from "@mysten/sui.js";
-import {
+import { Connection, JsonRpcProvider } from '@mysten/sui.js'
+import type {
   StandardConnectInput,
   SuiSignAndExecuteTransactionBlockInput,
   SuiSignAndExecuteTransactionBlockOutput,
@@ -7,38 +7,31 @@ import {
   SuiSignMessageOutput,
   SuiSignTransactionBlockInput,
   SuiSignTransactionBlockOutput,
-  WalletAccount,
-} from "@mysten/wallet-standard";
-import { computed, ref } from "vue";
-import { Chains, isValidChainKey } from "../constants";
-import {
-  IWalletStore,
-  IWalletStoreChainOverwrite,
-  IWalletStoreProps,
-  IWalletStoreStatus,
-  Nullable,
-  ValidChainsArr,
-} from "../types";
-import { LocalStorageKey } from "../types/localStorage";
-import { Feature, IWalletAdapter } from "../wallet/wallet.adapter";
-import { DefaultWallets } from "../wallet/wallet.metadata";
-import { useAutoConnect } from "./useAutoConnect";
-import { useAvailableWallets } from "./useAvailableWallets";
+  WalletAccount
+} from '@mysten/wallet-standard'
+import { computed, ref } from 'vue'
+import { Chains, isValidChainKey } from '@/constants'
+import type { IWalletStore, IWalletStoreChainOverwrite, IWalletStoreProps, Nullable } from '@/types'
+import { IWalletStoreStatus, ValidChainsArr } from '@/types'
+import { LocalStorageKey } from '@/types'
+import { Feature, DefaultWallets, type IWalletAdapter } from '@/wallet'
+import { useAutoConnect, useAvailableWallets } from '.'
+import {} from './useAutoConnect'
 
-let store: Nullable<IWalletStore> = null;
+let store: Nullable<IWalletStore> = null
 
 export const useWallet = (): IWalletStore => {
-  if (store) return store;
+  if (store) return store
 
   throw new Error(
-    "Wallet not initialized. Please use the `initWallet` method to initialize the wallet."
-  );
-};
+    'Wallet not initialized. Please use the `initWallet` method to initialize the wallet.'
+  )
+}
 
 export const initWallet = (walletStoreProps: IWalletStoreProps): void => {
-  store = createWalletStore(walletStoreProps);
-  useAutoConnect({ autoConnect: walletStoreProps.autoConnect });
-};
+  store = createWalletStore(walletStoreProps)
+  useAutoConnect({ autoConnect: walletStoreProps.autoConnect })
+}
 
 /**
  * Overwrite default chain values with user provided values, then freeze the object to prevent further changes.
@@ -46,174 +39,165 @@ export const initWallet = (walletStoreProps: IWalletStoreProps): void => {
 function handleChainOverwrites(input: Nullable<IWalletStoreChainOverwrite>) {
   if (input) {
     for (const [key, newValue] of Object.entries(input)) {
-      if (!isValidChainKey(key)) continue;
+      if (!isValidChainKey(key)) continue
 
-      const chain = Chains[key];
-      chain.nodeUrl = newValue.nodeUrl || chain.nodeUrl;
-      chain.displayName = newValue.displayName || chain.displayName;
-      chain.key = newValue.key || chain.key;
-      chain.faucetUrl = newValue.faucetUrl || chain.faucetUrl;
+      const chain = Chains[key]
+      chain.nodeUrl = newValue.nodeUrl || chain.nodeUrl
+      chain.displayName = newValue.displayName || chain.displayName
+      chain.key = newValue.key || chain.key
+      chain.faucetUrl = newValue.faucetUrl || chain.faucetUrl
 
       // console.log(`Overwrote chain ${key}, new value is:`, chain);
     }
   }
 
-  Object.freeze(Chains);
+  Object.freeze(Chains)
 }
 
 const createWalletStore = ({
   chainOverwrite,
-  chain = "SUI_DEVNET",
+  chain = 'SUI_DEVNET'
 }: IWalletStoreProps): IWalletStore => {
-  handleChainOverwrites(chainOverwrite);
+  handleChainOverwrites(chainOverwrite)
 
-  const selectedChain = Chains[chain];
+  const selectedChain = Chains[chain]
 
-  const connecting = ref(false);
-  const connected = ref(false);
-  const disconnecting = ref(false);
+  const connecting = ref(false)
+  const connected = ref(false)
+  const disconnecting = ref(false)
 
-  const status = ref<IWalletStoreStatus>(IWalletStoreStatus.DISCONNECTED);
-  const adapter = ref<Nullable<IWalletAdapter>>(null);
+  const status = ref<IWalletStoreStatus>(IWalletStoreStatus.DISCONNECTED)
+  const adapter = ref<Nullable<IWalletAdapter>>(null)
 
   const {
     configured: configuredWallets,
     detected: detectedWallets,
     installed: installedWallets,
-    configuredNonDetected: configuredNonDetectedWallets,
-  } = useAvailableWallets(DefaultWallets);
+    configuredNonDetected: configuredNonDetectedWallets
+  } = useAvailableWallets(DefaultWallets)
   // Helper Functions
   async function setStatus(newStatus: IWalletStoreStatus) {
     switch (newStatus) {
       case IWalletStoreStatus.CONNECTING:
-        connecting.value = true;
-        connected.value = false;
-        disconnecting.value = false;
-        break;
+        connecting.value = true
+        connected.value = false
+        disconnecting.value = false
+        break
       case IWalletStoreStatus.CONNECTED:
-        connecting.value = false;
-        connected.value = true;
-        disconnecting.value = false;
-        break;
+        connecting.value = false
+        connected.value = true
+        disconnecting.value = false
+        break
       case IWalletStoreStatus.DISCONNECTED:
-        connecting.value = false;
-        connected.value = false;
-        disconnecting.value = false;
-        break;
+        connecting.value = false
+        connected.value = false
+        disconnecting.value = false
+        break
       case IWalletStoreStatus.DISCONNECTING:
-        connecting.value = false;
-        connected.value = false;
-        disconnecting.value = true;
-        break;
+        connecting.value = false
+        connected.value = false
+        disconnecting.value = true
+        break
     }
   }
 
   async function select(walletName: string) {
     if (adapter.value) {
-      if (adapter.value.name == walletName) return; // Already connected to this wallet
+      if (adapter.value.name == walletName) return // Already connected to this wallet
 
-      await adapter.value.disconnect(); // Disconnect from current wallet
+      await adapter.value.disconnect() // Disconnect from current wallet
     }
 
-    const target = installedWallets.value.find(
-      (w) => w.displayName == walletName
-    );
+    const target = installedWallets.value.find((w) => w.displayName == walletName)
 
     if (!target) {
-      const installedWalletsNames = installedWallets.value.map(
-        (w) => w.displayName
-      );
+      const installedWalletsNames = installedWallets.value.map((w) => w.displayName)
 
       if (installedWalletsNames.length == 0)
         throw new Error(
           `No wallets installed. Please install a wallet first. Valid wallets are: ${configuredWallets.value
             .map((w) => w.displayName)
-            .join(", ")}`
-        );
+            .join(', ')}`
+        )
 
       throw new Error(
-        `Wallet ${walletName} not found. (Valid wallets are: ${installedWalletsNames.join(
-          ", "
-        )})`
-      );
+        `Wallet ${walletName} not found. (Valid wallets are: ${installedWalletsNames.join(', ')})`
+      )
     }
 
-    await connect(target.adapter!);
+    await connect(target.adapter!)
   }
 
   async function connect(
     connectionAdapter: IWalletAdapter,
     connectionOptions?: StandardConnectInput
   ) {
-    if (!connectionAdapter) throw new Error("No adapter provided.");
+    if (!connectionAdapter) throw new Error('No adapter provided.')
 
-    setStatus(IWalletStoreStatus.CONNECTING);
+    setStatus(IWalletStoreStatus.CONNECTING)
     try {
-      const connectionRes = await connectionAdapter.connect(connectionOptions);
+      const connectionRes = await connectionAdapter.connect(connectionOptions)
 
-      adapter.value = connectionAdapter;
+      adapter.value = connectionAdapter
 
-      setStatus(IWalletStoreStatus.CONNECTED);
-      localStorage.setItem(
-        LocalStorageKey.PREV_WALLET_NAME,
-        connectionAdapter.name
-      ); // store in local storage, so we can implement auto-connect in the future
-      return connectionRes;
+      setStatus(IWalletStoreStatus.CONNECTED)
+      localStorage.setItem(LocalStorageKey.PREV_WALLET_NAME, connectionAdapter.name) // store in local storage, so we can implement auto-connect in the future
+      return connectionRes
     } catch (error) {
-      setStatus(IWalletStoreStatus.DISCONNECTED);
-      throw error;
+      setStatus(IWalletStoreStatus.DISCONNECTED)
+      throw error
     }
   }
 
   async function disconnect() {
-    if (!adapter.value) return; // Nothing to disconnect from
-    if (!adapter.value.hasFeature(Feature.DISCONNECT)) return; // Adapter does not support disconnecting
+    if (!adapter.value) return // Nothing to disconnect from
+    if (!adapter.value.hasFeature(Feature.DISCONNECT)) return // Adapter does not support disconnecting
 
     try {
-      setStatus(IWalletStoreStatus.DISCONNECTING);
+      setStatus(IWalletStoreStatus.DISCONNECTING)
 
-      await adapter.value.disconnect();
+      await adapter.value.disconnect()
 
-      localStorage.removeItem(LocalStorageKey.PREV_WALLET_NAME);
-      setStatus(IWalletStoreStatus.DISCONNECTED);
-      adapter.value = null;
+      localStorage.removeItem(LocalStorageKey.PREV_WALLET_NAME)
+      setStatus(IWalletStoreStatus.DISCONNECTED)
+      adapter.value = null
     } catch (e) {
-      console.error(e, "while disconnecting wallet"); // TODO better error handling
+      console.error(e, 'while disconnecting wallet') // TODO better error handling
     }
   }
 
   async function signMessage(
-    input: Omit<SuiSignMessageInput, "account">
+    input: Omit<SuiSignMessageInput, 'account'>
   ): Promise<SuiSignMessageOutput> {
     if (!adapter.value || !account.value) {
-      throw new Error("No wallet connected");
+      throw new Error('No wallet connected')
     }
 
     return adapter.value.signMessage({
       message: input.message,
-      account: account.value,
-    });
+      account: account.value
+    })
   }
 
   async function signTransactionBlock(
-    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
+    input: Omit<SuiSignTransactionBlockInput, 'account' | 'chain'>
   ): Promise<SuiSignTransactionBlockOutput> {
     if (!adapter.value || !account.value) {
-      throw new Error("No wallet connected");
+      throw new Error('No wallet connected')
     }
 
     return adapter.value.signTransactionBlock({
       account: account.value,
       chain: selectedChain.key,
-      transactionBlock: input.transactionBlock,
-    });
+      transactionBlock: input.transactionBlock
+    })
   }
 
   async function signAndExecuteTransactionBlock(
     input: SuiSignAndExecuteTransactionBlockInput
   ): Promise<SuiSignAndExecuteTransactionBlockOutput> {
     if (!adapter.value || !account.value) {
-      throw new Error("No wallet connected");
+      throw new Error('No wallet connected')
     }
 
     return adapter.value.signAndExecuteTransactionBlock({
@@ -221,27 +205,27 @@ const createWalletStore = ({
       chain: selectedChain.key,
       transactionBlock: input.transactionBlock,
       options: input.options,
-      requestType: input.requestType,
-    });
+      requestType: input.requestType
+    })
   }
 
   const accounts = computed<readonly WalletAccount[]>(() => {
-    if (!adapter.value) return [];
-    return adapter.value.accounts;
-  });
+    if (!adapter.value) return []
+    return adapter.value.accounts
+  })
 
   const account = computed(() => {
-    if (accounts.value.length == 0) return null;
-    return accounts.value[0];
-  });
+    if (accounts.value.length == 0) return null
+    return accounts.value[0]
+  })
 
-  const address = computed(() => account.value?.address);
+  const address = computed(() => account.value?.address)
 
   return {
     provider: new JsonRpcProvider(
       new Connection({
         fullnode: selectedChain.nodeUrl,
-        faucet: selectedChain.faucetUrl,
+        faucet: selectedChain.faucetUrl
       })
     ),
     adapter,
@@ -258,7 +242,7 @@ const createWalletStore = ({
       configured: configuredWallets,
       detected: detectedWallets,
       installed: installedWallets,
-      configuredNonDetected: configuredNonDetectedWallets,
+      configuredNonDetected: configuredNonDetectedWallets
     },
 
     accounts,
@@ -271,6 +255,6 @@ const createWalletStore = ({
 
     signMessage,
     signTransactionBlock,
-    signAndExecuteTransactionBlock,
-  };
-};
+    signAndExecuteTransactionBlock
+  }
+}

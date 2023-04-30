@@ -1,41 +1,39 @@
-import { Ref, ref, watchEffect } from "vue";
-import { LocalStorageKey } from "../types/localStorage";
-import { useWallet } from "./useWallet";
+import { type Ref, ref, watchEffect } from 'vue'
+import { LocalStorageKey } from '@/types'
+import { useWallet } from '.'
 
 export type UseAutoConnectOptions = Partial<{
-  autoConnect: boolean;
-  onAutoConnectError?: (error: any) => void;
-}>;
+  autoConnect: boolean
+  onAutoConnectError?: (error: any) => void
+}>
 export type UseAutoConnectOutput = {
-  autoConnect: Ref<boolean>;
-};
+  autoConnect: Ref<boolean>
+}
 
-export function useAutoConnect(
-  opts?: UseAutoConnectOptions
-): UseAutoConnectOutput {
-  const { autoConnect: initialAutoConnect = true } = opts || {};
-  const autoConnect = ref(initialAutoConnect);
-  const hasAttemptedAutoConnect = ref(false);
+export function useAutoConnect(opts?: UseAutoConnectOptions): UseAutoConnectOutput {
+  const { autoConnect: initialAutoConnect = true } = opts || {}
+  const autoConnect = ref(initialAutoConnect)
+  const hasAttemptedAutoConnect = ref(false)
 
-  const $wallet = useWallet();
+  const $wallet = useWallet()
 
   watchEffect(() => {
-    if (hasAttemptedAutoConnect.value || !autoConnect.value) return;
-    if ($wallet.connected.value || $wallet.connecting.value) return;
+    if (hasAttemptedAutoConnect.value || !autoConnect.value) return
+    if ($wallet.connected.value || $wallet.connecting.value) return
 
-    const lastWallet = localStorage.getItem(LocalStorageKey.PREV_WALLET_NAME);
-    if (!lastWallet) return;
+    const lastWallet = localStorage.getItem(LocalStorageKey.PREV_WALLET_NAME)
+    if (!lastWallet) return
 
-    hasAttemptedAutoConnect.value = true;
+    hasAttemptedAutoConnect.value = true
 
-    (async () => {
+    ;(async () => {
       try {
-        await $wallet.select(lastWallet);
+        await $wallet.select(lastWallet)
       } catch (err) {
-        if (opts?.onAutoConnectError) opts.onAutoConnectError(err);
+        if (opts?.onAutoConnectError) opts.onAutoConnectError(err)
       }
-    })();
-  });
+    })()
+  })
 
-  return { autoConnect };
+  return { autoConnect }
 }

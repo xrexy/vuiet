@@ -1,4 +1,4 @@
-import {
+import type {
   StandardConnectFeature,
   StandardConnectInput,
   StandardConnectMethod,
@@ -22,17 +22,17 @@ import {
   SuiSignTransactionBlockMethod,
   SuiSignTransactionBlockOutput,
   Wallet,
-  WalletWithFeatures,
-} from "@mysten/wallet-standard";
-import { has } from "lodash-es";
+  WalletWithFeatures
+} from '@mysten/wallet-standard'
+import { has } from 'lodash-es'
 
 export enum Feature {
-  DISCONNECT = "standard:disconnect",
-  CONNECT = "standard:connect",
-  EVENTS = "standard:events",
-  SUI_SIGN_AND_EXECUTE_TX_BLOCK = "sui:signAndExecuteTransactionBlock",
-  SUI_SIGN_TX_BLOCK = "sui:signTransactionBlock",
-  SUI_SIGN_MESSAGE = "sui:signMessage",
+  DISCONNECT = 'standard:disconnect',
+  CONNECT = 'standard:connect',
+  EVENTS = 'standard:events',
+  SUI_SIGN_AND_EXECUTE_TX_BLOCK = 'sui:signAndExecuteTransactionBlock',
+  SUI_SIGN_TX_BLOCK = 'sui:signTransactionBlock',
+  SUI_SIGN_MESSAGE = 'sui:signMessage'
 }
 
 export type IWalletAdapter = WalletWithFeatures<
@@ -43,96 +43,85 @@ export type IWalletAdapter = WalletWithFeatures<
     SuiSignTransactionBlockFeature &
     SuiSignMessageFeature
 > & {
-  connect: StandardConnectMethod;
-  disconnect: StandardDisconnectMethod;
-  on: StandardEventsOnMethod;
-  signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
-  signTransactionBlock: SuiSignTransactionBlockMethod;
-  signMessage: SuiSignMessageMethod;
-  hasFeature: (feature: string) => boolean;
-};
+  connect: StandardConnectMethod
+  disconnect: StandardDisconnectMethod
+  on: StandardEventsOnMethod
+  signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod
+  signTransactionBlock: SuiSignTransactionBlockMethod
+  signMessage: SuiSignMessageMethod
+  hasFeature: (feature: string) => boolean
+}
 
 export class WalletAdapter implements IWalletAdapter {
-  #standardAdapter: Wallet;
+  #standardAdapter: Wallet
 
   constructor(standardAdapter: Wallet) {
-    this.#standardAdapter = standardAdapter;
+    this.#standardAdapter = standardAdapter
   }
 
-  getName = () => this.#standardAdapter.name;
+  getName = () => this.#standardAdapter.name
   get name() {
-    return this.getName();
+    return this.getName()
   }
 
-  getVersion = () => this.#standardAdapter.version;
+  getVersion = () => this.#standardAdapter.version
   get version() {
-    return this.getVersion();
+    return this.getVersion()
   }
 
-  getIcon = () => this.#standardAdapter.icon;
+  getIcon = () => this.#standardAdapter.icon
   get icon() {
-    return this.getIcon();
+    return this.getIcon()
   }
 
-  getChains = () => this.#standardAdapter.chains;
+  getChains = () => this.#standardAdapter.chains
   get chains() {
-    return this.getChains();
+    return this.getChains()
   }
 
-  getAccounts = () => this.#standardAdapter.accounts;
+  getAccounts = () => this.#standardAdapter.accounts
   get accounts() {
-    return this.getAccounts();
+    return this.getAccounts()
   }
 
-  getFeatures = () => this.#standardAdapter.features as any;
+  getFeatures = () => this.#standardAdapter.features as any
   get features() {
-    return this.getFeatures();
+    return this.getFeatures()
   }
 
   getFeature = <T>(name: string): T => {
-    const { features } = this.#standardAdapter;
-    if (!has(features, name)) throw new Error(`Feature ${name} not found`);
-    return (features as any)[name] as T;
-  };
+    const { features } = this.#standardAdapter
+    if (!has(features, name)) throw new Error(`Feature ${name} not found`)
+    return (features as any)[name] as T
+  }
 
   async disconnect() {
-    const feat = this.getFeature<{ disconnect: StandardDisconnectMethod }>(
-      Feature.DISCONNECT
-    );
+    const feat = this.getFeature<{ disconnect: StandardDisconnectMethod }>(Feature.DISCONNECT)
 
     try {
-      return await feat.disconnect();
+      return await feat.disconnect()
     } catch (err: any) {
-      throw new Error(err.message); // TODO better errors
+      throw new Error(err.message) // TODO better errors
     }
   }
 
-  async connect(
-    input: StandardConnectInput | undefined
-  ): Promise<StandardConnectOutput> {
-    const feat = this.getFeature<{ connect: StandardConnectMethod }>(
-      Feature.CONNECT
-    );
+  async connect(input: StandardConnectInput | undefined): Promise<StandardConnectOutput> {
+    const feat = this.getFeature<{ connect: StandardConnectMethod }>(Feature.CONNECT)
 
     try {
-      return await feat.connect(input);
+      return await feat.connect(input)
     } catch (err: any) {
       // TODO try to handle error, also better erros
-      throw new Error(err.message);
+      throw new Error(err.message)
     }
   }
 
-  on(
-    e: StandardEventsNames,
-    listener: StandardEventsListeners[StandardEventsNames]
-  ) {
-    const feat = this.getFeature<{ on: StandardEventsOnMethod }>(
-      Feature.EVENTS
-    );
+  on(e: StandardEventsNames, listener: StandardEventsListeners[StandardEventsNames]) {
+    const feat = this.getFeature<{ on: StandardEventsOnMethod }>(Feature.EVENTS)
     try {
-      return feat.on<StandardEventsNames>(e, listener);
+      return feat.on<StandardEventsNames>(e, listener)
     } catch (err: any) {
-      throw new Error(err.message); // TODO better errors
+      throw new Error(err.message) // TODO better errors
     }
   }
 
@@ -140,13 +129,13 @@ export class WalletAdapter implements IWalletAdapter {
     input: SuiSignAndExecuteTransactionBlockInput
   ): Promise<SuiSignAndExecuteTransactionBlockOutput> {
     const feat = this.getFeature<{
-      signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
-    }>(Feature.SUI_SIGN_AND_EXECUTE_TX_BLOCK);
+      signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod
+    }>(Feature.SUI_SIGN_AND_EXECUTE_TX_BLOCK)
 
     try {
-      return await feat.signAndExecuteTransactionBlock(input);
+      return await feat.signAndExecuteTransactionBlock(input)
     } catch (err: any) {
-      throw new Error(err.message); // TODO better errors
+      throw new Error(err.message) // TODO better errors
     }
   }
 
@@ -154,27 +143,25 @@ export class WalletAdapter implements IWalletAdapter {
     input: SuiSignTransactionBlockInput
   ): Promise<SuiSignTransactionBlockOutput> {
     const feat = this.getFeature<{
-      signTransactionBlock: SuiSignTransactionBlockMethod;
-    }>(Feature.SUI_SIGN_TX_BLOCK);
+      signTransactionBlock: SuiSignTransactionBlockMethod
+    }>(Feature.SUI_SIGN_TX_BLOCK)
 
     try {
-      return await feat.signTransactionBlock(input);
+      return await feat.signTransactionBlock(input)
     } catch (err: any) {
-      throw new Error(err.message); // TODO better errors
+      throw new Error(err.message) // TODO better errors
     }
   }
 
   async signMessage(input: SuiSignMessageInput): Promise<SuiSignMessageOutput> {
-    const feat = this.getFeature<{ signMessage: SuiSignMessageMethod }>(
-      Feature.SUI_SIGN_MESSAGE
-    );
+    const feat = this.getFeature<{ signMessage: SuiSignMessageMethod }>(Feature.SUI_SIGN_MESSAGE)
 
     try {
-      return await feat.signMessage(input);
+      return await feat.signMessage(input)
     } catch (err: any) {
-      throw new Error(err.message); // TODO better errors
+      throw new Error(err.message) // TODO better errors
     }
   }
 
-  hasFeature = (feature: string) => has(this.#standardAdapter.features, feature);
+  hasFeature = (feature: string) => has(this.#standardAdapter.features, feature)
 }

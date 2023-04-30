@@ -1,11 +1,14 @@
-import { App } from "vue";
-import { initWallet, useWallet } from "./composables/useWallet.js";
-import { IWalletStoreProps } from "./types";
+import './styles.css'
 
-export * from "./composables/";
-export * from "./constants/";
-export * from "./types/";
-export * from "./wallet/";
+import type { App } from 'vue'
+import { initWallet, useWallet } from './composables/useWallet.js'
+import type { IWalletStoreProps } from './types'
+
+export * from './components/'
+export * from './composables/'
+export * from './constants/'
+export * from './types/'
+export * from './wallet/'
 
 /**
  * Vue plugin for the Sui Wallet
@@ -14,7 +17,7 @@ export * from "./wallet/";
  */
 export default {
   install: (app: App, options: IWalletStoreProps = {}) => {
-    initWallet(options);
-    app.config.globalProperties.$wallet = useWallet();
-  },
-};
+    initWallet(options)
+    app.config.globalProperties.$wallet = useWallet()
+  }
+}

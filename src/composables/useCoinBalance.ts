@@ -1,52 +1,49 @@
-import { CoinBalance, SUI_TYPE_ARG } from "@mysten/sui.js";
-import { Chains, isValidChainKey } from "../constants";
-import { ComputedRef, Ref, computed, ref, watch } from "vue";
-import { useWallet } from "./useWallet";
-import { Nullable } from "src/types";
+import type { Nullable } from '@/types'
+import type { CoinBalance } from '@mysten/sui.js'
+import { computed, ref, watchEffect, type ComputedRef, type Ref } from 'vue'
+import { useWallet } from './useWallet'
 
 export type UseCoinBalanceOptions = Partial<{
-  coinType: Nullable<string>;
-}>;
+  coinType: Nullable<string>
+}>
 
 export type UseCoinBalanceOutput = {
-  coinBalance: Ref<Nullable<CoinBalance>>;
-  balance: ComputedRef<Nullable<string>>;
-  fetching: Ref<boolean>;
-};
+  coinBalance: Ref<Nullable<CoinBalance>>
+  balance: ComputedRef<string>
+  fetching: Ref<boolean>
+}
 
-export function useCoinBalance(
-  opts?: UseCoinBalanceOptions
-): UseCoinBalanceOutput {
-  const $wallet = useWallet();
+export function useCoinBalance(opts?: UseCoinBalanceOptions): UseCoinBalanceOutput {
+  const $wallet = useWallet()
 
-  const { coinType } = opts || {};
+  const { coinType } = opts || {}
 
-  const coinBalance = ref<Nullable<CoinBalance>>(null);
-  const fetching = ref(false);
+  const coinBalance = ref<Nullable<CoinBalance>>(null)
+  const fetching = ref(false)
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function fetchBalance(address: string) {
-    if (!$wallet.address.value) return;
+    if (!$wallet.address.value) return
 
     return $wallet.provider.getBalance({
       owner: $wallet.address.value,
-      coinType,
-    });
+      coinType
+    })
   }
 
-  watch($wallet.address, (address) => {
+  watchEffect(() => {
+    const address = $wallet.address.value
     if (address && address.length > 1) {
-      fetching.value = true;
+      fetching.value = true
       fetchBalance(address)
         .then((x) => (coinBalance.value = x))
-        .finally(() => (fetching.value = false));
+        .finally(() => (fetching.value = false))
     } else {
-      coinBalance.value = null;
+      coinBalance.value = null
     }
-  });
+  })
 
-  const balance = computed<string>(
-    () => coinBalance?.value?.totalBalance || "0"
-  );
+  const balance = computed<string>(() => coinBalance?.value?.totalBalance || '0')
 
-  return { coinBalance, fetching, balance };
+  return { coinBalance, fetching, balance }
 }
