@@ -1,6 +1,6 @@
 {
   "name": "vuiet",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Minimal wallet manager for Sui blockhain for Vue 3",
   "author": "xrexy",
   "license": "MIT",
