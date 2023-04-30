@@ -1,6 +1,6 @@
 {
   "name": "vuiet",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Minimal wallet manager for Sui blockhain for Vue 3",
   "author": "xrexy",
   "license": "MIT",
@@ -16,7 +16,8 @@
   "exports": {
     ".": {
       "import": "./dist/vuiet.mjs",
-      "require": "./dist/vuiet.umd.js"
+      "require": "./dist/vuiet.umd.js",
+      "types": "./dist/index.d.ts"
     },
     "./tailwind.config.js": "./tailwind.config.js",
     "./vite.config.ts": "./vite.config.ts"
