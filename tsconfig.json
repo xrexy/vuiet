@@ -1,19 +1,16 @@
 {
-  // most of the options are sourced from astrojs
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "outDir": "dist",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "strict": true,
     "baseUrl": ".",
-    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
 
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "example"]
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

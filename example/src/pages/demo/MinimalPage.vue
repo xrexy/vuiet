@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCoinBalance, useWallet } from "../../../../src";
+import { useCoinBalance, useWallet } from "vuiet";
 
 const $wallet = useWallet();
 const { balance, fetching: fetchingBalance } = useCoinBalance();

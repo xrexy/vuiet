@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { IWallet } from "src/types";
-import { PropType } from "vue";
+import type { IWallet } from "@/types";
+import type { PropType } from "vue";
 
 defineProps({
   wallet: {

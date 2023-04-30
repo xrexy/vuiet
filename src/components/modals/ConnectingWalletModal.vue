@@ -19,24 +19,24 @@
 </template>
 
 <script setup lang="ts">
-import { IWallet } from "../../types";
-import { PropType } from "vue";
-import { ModalWrapper } from "..";
+import type { IWallet } from '@/types'
+import type { PropType } from 'vue'
+import { ModalWrapper } from '..'
 
 defineProps({
   isOpen: {
     type: Boolean,
-    required: true,
+    required: true
   },
   onClose: {
     type: Function,
-    required: true,
+    required: true
   },
   wallet: {
     type: Object as PropType<IWallet>,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 </script>
 
 <style scoped>

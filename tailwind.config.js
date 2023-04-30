@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [ "/src/components/**/*.vue"],
+  content: ["src/**/*.vue"],
   theme: {
     extend: {
       // https://coolors.co/palette/ffa69e-faf3dd-b8f2e6-aed9e0-5e6471

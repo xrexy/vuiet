@@ -9,6 +9,7 @@
         <li
           class="flex items-center gap-2"
           v-for="wallet in $wallet.wallets.configured.value"
+          :key="wallet.displayName"
         >
           <img class="w-12 h-12 rounded-full" :src="wallet.icon" />
           <p class="font-bold">{{ wallet.displayName }}</p>
@@ -52,7 +53,6 @@
 </template>
 
 <script setup lang="ts">
-import {  } from "vuiet/composables";
-
+import { useWallet } from "vuiet";
 const $wallet = useWallet();
 </script>

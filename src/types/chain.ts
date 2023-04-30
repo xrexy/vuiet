@@ -1,4 +1,4 @@
-import { IdentifierString } from "@wallet-standard/core";
+import type { IdentifierString } from "@wallet-standard/core";
 
 export type Chain = {
   nodeUrl: string;

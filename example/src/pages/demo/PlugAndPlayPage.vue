@@ -6,5 +6,5 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { WalletMultiButton } from "../../../../src/components";
+import { WalletMultiButton } from "vuiet";
 </script>

@@ -24,8 +24,8 @@
       :is-open="modalType === WalletModalType.INSTALL"
       :on-close="
         () => {
-          closeModal();
-          targetWallet = null;
+          closeModal()
+          targetWallet = null
         }
       "
     />
@@ -33,44 +33,44 @@
 </template>
 
 <script setup lang="ts">
-import { useWallet } from "../composables";
-import { nextTick, ref } from "vue";
+import { ref } from 'vue'
 import {
-  WalletConnectButton,
-  SelectWalletModal,
   ConnectingWalletModal,
   InstallWalletModal,
-} from ".";
-import { IWallet, Nullable } from "../types";
+  SelectWalletModal,
+  WalletConnectButton
+} from '.'
+import { useWallet } from '@/composables'
+import type { IWallet, Nullable } from '@/types'
 
 enum WalletModalType {
-  SELECT = "select_modal",
-  CONNECTING = "connecting_modal",
-  INSTALL = "install_modal",
+  SELECT = 'select_modal',
+  CONNECTING = 'connecting_modal',
+  INSTALL = 'install_modal'
 }
 
-const modalType = ref<Nullable<WalletModalType>>(null);
-const targetWallet = ref<Nullable<IWallet>>(null);
+const modalType = ref<Nullable<WalletModalType>>(null)
+const targetWallet = ref<Nullable<IWallet>>(null)
 
-const $wallet = useWallet();
+const $wallet = useWallet()
 
 /**
  * @param wallet If wallet is null, it means it was clicked on the "Available" section
  */
 function handleWalletClick(wallet: IWallet) {
-  targetWallet.value = wallet;
+  targetWallet.value = wallet
 
   if (!wallet.installed) {
-    modalType.value = WalletModalType.INSTALL;
-    return;
+    modalType.value = WalletModalType.INSTALL
+    return
   }
 
-  modalType.value = WalletModalType.CONNECTING;
+  modalType.value = WalletModalType.CONNECTING
   $wallet.select(wallet.displayName).finally(() => {
-    targetWallet.value = null;
-    closeModal();
-  });
+    targetWallet.value = null
+    closeModal()
+  })
 }
 
-const closeModal = () => (modalType.value = null);
+const closeModal = () => (modalType.value = null)
 </script>

@@ -13,14 +13,14 @@
 
     <div>
       <!-- Detected -->
-      {{ wallet.displayName }}aaaa
+      {{ wallet.displayName }}
     </div> 
   </ModalWrapper>
 </template>
 
 <script setup lang="ts">
-import { IWallet } from "../../types";
-import { PropType } from "vue";
+import type { IWallet } from "@/types";
+import type { PropType } from "vue";
 import { ModalWrapper } from "..";
 
 defineProps({
