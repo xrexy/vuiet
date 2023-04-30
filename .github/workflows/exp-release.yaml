@@ -1,8 +1,8 @@
-name: VUIET_RELEASE_CI
+name: VUIET_EXPERIMENTAL_RELEASE_CI
 on:
   push:
     tags:
-      - v**-experimental
+      - v*.*.*-experimental
 
 jobs:
   build:
