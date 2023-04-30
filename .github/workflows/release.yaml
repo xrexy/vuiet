@@ -23,6 +23,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm run build
+      - name: "Help"
+        run: echo ${{ secrets.NPM_TOKEN }}
       - name: Publish
         run: pnpm run ci:publish
         env:
