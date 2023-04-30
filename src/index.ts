@@ -1,4 +1,4 @@
-import './styles.css'
+import './vuiet.css'
 
 import type { App } from 'vue'
 import { initWallet, useWallet } from './composables/useWallet.js'

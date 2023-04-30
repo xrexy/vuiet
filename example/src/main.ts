@@ -5,6 +5,7 @@ import "./style.css";
 import { createRouter, createWebHistory } from "vue-router";
 import { VueRoute } from "./types";
 import CodeBlock from "vue3-code-block";
+import 'vuiet/dist/style.css'
 
 const demoRoutes: VueRoute[] = [
   { path: "/minimal", component: () => import("./pages/demo/MinimalPage.vue") },
