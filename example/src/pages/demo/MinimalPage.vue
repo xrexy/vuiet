@@ -16,7 +16,7 @@
             </p>
             <p v-else> Not Logged In </p>
           </div>
-          <p>Balance: {{ fetchingBalance ? '...' : balance }} SUI</p>
+          <p>Balance: {{ fetchingBalance ? '...' : (balance / 1e9).toLocaleString() }} SUI</p>
         </div>
         <CodeBlock
           :highlightjs="true"
@@ -61,6 +61,7 @@
 
 <script setup lang="ts">
 import { useCoinBalance, useWallet } from "vuiet";
+import {} from 'solana-wallets-vue';
 
 const $wallet = useWallet();
 const { balance, fetching: fetchingBalance } = useCoinBalance();
