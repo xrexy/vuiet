@@ -27,9 +27,9 @@ jobs:
         run: pnpm run ci:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - uses: 'marvinpinto/action-automatic-releases@latest'
         with:
           prerelease: false
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
           automatic_release_tag: ${{github.ref_name}}
-          title: "Release ${{github.ref_name}}"
+          title: 'Release ${{github.ref_name}}'

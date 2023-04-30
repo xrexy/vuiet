@@ -27,8 +27,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "semantic-release": "semantic-release",
-    "ci:publish": "pnpm public --no-git-checks -r --access public",
-    "ci:exp-publish": "pnpm public --no-git-checks -r --access public --tag experimental"
+    "ci:publish": "pnpm public -r --no-git-checks --access public",
+    "ci:exp-publish": "pnpm public -r --no-git-checks --access public --tag experimental"
   },
   "dependencies": {
     "@mysten/sui.js": "^0.32.2",
