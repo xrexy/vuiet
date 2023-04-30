@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --open --port 3000",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "npx http-server ./dist"
   },
   "dependencies": {
     "@vueuse/core": "^10.1.0",
