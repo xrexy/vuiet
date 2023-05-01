@@ -55,7 +55,7 @@ export const useAvailableWallets = (def: IWallet[]) => {
   })
 
   const installed = computed<IWallet[]>(() => {
-    const withDuplicated = [...detected.value, ...configured.value]
+    const withDuplicated = [...detected.value, ...configured.value].filter((x) => x.installed)
     const map = new Map<string, IWallet>()
     for (const item of withDuplicated) {
       map.set(item.displayName, item)
