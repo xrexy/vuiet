@@ -63,7 +63,6 @@ function copy(address: string, text = 'Copied!', timeout = 1000) {
   if (address == '' || before == text) return
 
   navigator.clipboard.writeText(address)
-  console.log('copied')
 
   addressRef.value!.innerText = text
   setTimeout(() => {

@@ -1,5 +1,5 @@
 <template>
-  <ModalWrapper @close="$emit('close')">
+  <ModalWrapper @close="$emit('close')" :isOpen="isOpen">
     <div class="flex text-v-blue-800 flex-col justify-between w-full py-4 z-[100] rounded-t-md">
       <div class="flex justify-between items-center w-full px-4">
         <p class="text-md font-bold">Select Wallet</p>
@@ -59,6 +59,13 @@ import { useWallet } from '../../composables'
 
 const $wallet = useWallet()
 defineEmits(['w-click', 'close'])
+
+defineProps({
+  isOpen: {
+    type: Boolean,
+    required: true
+  }
+})
 
 const detectedWallets = computed(() => $wallet.wallets.detected.value)
 const availableWallets = computed(() => $wallet.wallets.configuredNonDetected.value)

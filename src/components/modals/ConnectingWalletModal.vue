@@ -1,5 +1,5 @@
 <template>
-  <ModalWrapper @close="$emit('close')">
+  <ModalWrapper @close="$emit('close')" :isOpen="isOpen">
     <div class="flex text-v-blue-800 flex-col justify-between w-full py-4 z-[100] rounded-t-md">
       <div class="flex justify-between items-center w-full px-4">
         <p class="text-md font-bold">
@@ -37,6 +37,10 @@ defineProps({
   message: {
     type: String,
     default: 'Please approve the transaction on your screen.'
+  },
+  isOpen: {
+    type: Boolean,
+    required: true
   }
 })
 

@@ -10,7 +10,6 @@
     "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
-    "@vueuse/core": "^10.1.0",
     "serve": "^14.2.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
