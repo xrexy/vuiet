@@ -20,7 +20,7 @@ import type {
 } from '../types'
 import { IWalletStoreStatus, LocalStorageKey, ValidChainsArr } from '../types'
 import { DefaultWallets, Feature, type IWalletAdapter } from '../wallet'
-import { } from './useAutoConnect'
+import {} from './useAutoConnect'
 
 let store: Nullable<IWalletStore> = null
 
@@ -60,7 +60,8 @@ function handleChainOverwrites(input: Nullable<IWalletStoreChainOverwrite>) {
 
 const createWalletStore = ({
   chainOverwrite,
-  chain = 'SUI_DEVNET'
+  chain = 'SUI_DEVNET',
+  autoConnect = true
 }: IWalletStoreProps): IWalletStore => {
   handleChainOverwrites(chainOverwrite)
 
@@ -145,7 +146,10 @@ const createWalletStore = ({
       adapter.value = connectionAdapter
 
       setStatus(IWalletStoreStatus.CONNECTED)
-      localStorage.setItem(LocalStorageKey.PREV_WALLET_NAME, connectionAdapter.name) // store in local storage, so we can implement auto-connect in the future
+      if (autoConnect) {
+        localStorage.setItem(LocalStorageKey.PREV_WALLET_NAME, connectionAdapter.name);
+      }
+
       return connectionRes
     } catch (error) {
       setStatus(IWalletStoreStatus.DISCONNECTED)
