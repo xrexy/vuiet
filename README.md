@@ -1,46 +1,98 @@
-# killme
+# Vuiet ![](https://img.shields.io/npm/v/vuiet?color=blue) ![](https://img.shields.io/npm/dm/vuiet?color=blue)
 
-This template should help get you started developing with Vue 3 in Vite.
+Vuiet is a minimal wallet manager built on the Sui blockchain for Vue 3.
 
-## Recommended IDE Setup
+## Demo
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Basic code examples can be found on our demo page - [vuiet.dev](https://vuiet.dev)
 
-## Type Support for `.vue` Imports in TS
+## Getting Started
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+### Installation:
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
+```
+npm install -S vuiet
 ```
 
-### Compile and Hot-Reload for Development
+### Setup
+```ts
+// main.ts (App entry point)
+import { createApp } from 'vue'
+import Vuiet from 'vuiet'
 
-```sh
-pnpm dev
+// Needed to load tailwind classes for the components.
+// If you're not planning on using the built-in components there's no need to import it.
+import 'vuiet/dist/style.css'
+
+const app = createApp(App)
+
+app.use(SuiWallet, {
+  autoConnect: true,
+  chainOverwrite: {
+    SUI_DEVNET: {
+      faucetUrl: 'https://faucet.devnet.sui.io/gas'
+    }
+  }
+})
+
+app.mount('#app')
 ```
 
-### Type-Check, Compile and Minify for Production
+### Options
+<b>autoConnect</b> (default true, optional)
+> Whenever to connect to the previous wallet on page reload.
 
-```sh
-pnpm build
+> When enabled the wallet name is store in local storage with key <b>VUIET__PREV_WALLET_NAME</b>. 
+Deleting the entry will make the lib "forget" it, but will not auto-disconnect the user.
+
+<br />
+
+<b>chain</b> (default SUI_DEVNET)
+> What chain to use - this option is subject to change.
+
+<br />
+
+<b>chainOverwrite</b> (optional)
+> Overwrites the chain defaults. Can be useful to specify faucet urls since by default they're not specified.
+
+> Values that can be overwritten: nodeUrl, displayName, key and faucetUrl
+
+<br />
+
+* Valid chains are SUI_DEVNET, SUI_TESTNET and SUI_MAINNET
+
+## Basic Usage
+
+```html
+<template>
+  <p @click="$wallet.disconnect()">Address: {{ $wallet.address }}</p>
+  <p>Balance: {{ balance }}</p>
+  <!-- Balance is by default SUI -->
+  <!-- If you want to normalize it divide by 1e9 -->
+
+  <button @click="$wallet.select('Suiet')">Connect (Suiet)</button>
+</template>
+
+<script setup>
+  import { useWallet, useCoinBalance } from 'vuiet'
+  const $wallet = useWallet()
+  const { balance } = useCoinBalance()
+</script>
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Component Usage
 
-```sh
-pnpm lint
+<sub>⚠️ Components aren't as tested and modular as I wanted them to be at the moment. If you have any suggestions or found a bug feel free to open an issue.</sub>
+
+```html
+<template>
+  <p @click="$wallet.disconnect()">Address: {{ $wallet.address }}</p>
+
+  <WalletMultiButton />
+</template>
+
+<script setup>
+  import { useWallet, WalletMultiButton } from 'vuiet'
+  const $wallet = useWallet()
+</script>
 ```
