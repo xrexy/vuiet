@@ -17,8 +17,8 @@ dependencies:
     specifier: ^2.1.0
     version: 2.1.0(vue@3.2.47)
   vuiet:
-    specifier: ^0.2.1
-    version: 0.2.1(@mysten/sui.js@0.32.2)(vue@3.2.47)
+    specifier: ^0.2.2
+    version: 0.2.2(@mysten/sui.js@0.32.2)(vue@3.2.47)
 
 devDependencies:
   '@vitejs/plugin-vue':
@@ -2095,8 +2095,8 @@ packages:
       '@vue/server-renderer': 3.2.47(vue@3.2.47)
       '@vue/shared': 3.2.47
 
-  /vuiet@0.2.1(@mysten/sui.js@0.32.2)(vue@3.2.47):
-    resolution: {integrity: sha512-DMypDBi3wKp1uy16yx2VNOAGJP8OdfpV9WBTHbjBVzaE6WWamvoJm8OGWYZG3+BYaL2hAWUDI0Nm4AZMbSwY1A==}
+  /vuiet@0.2.2(@mysten/sui.js@0.32.2)(vue@3.2.47):
+    resolution: {integrity: sha512-fCO5rreamCqgw+4h17O+MKIBKR0R2AKrcPm8GtjXdFfSCnJBCUC3GIQTYbRYRTgUjGl0cgsFjNylpei+7HH8YQ==}
     peerDependencies:
       '@mysten/sui.js': ^0.32.2
       vue: ^3.2.47

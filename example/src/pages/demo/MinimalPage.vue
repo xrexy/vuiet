@@ -1,6 +1,5 @@
 <template>
   <div class="text-v-gray-100 h-full w-full flex flex-col justify-between py-16 items-center">
-    <!-- Title -->
     <h1 class="title-gradient font-black text-4xl tracking-wider">Minimal Example</h1>
 
     <div>
@@ -42,8 +41,7 @@
       </div>
     </div>
 
-    <!-- "Flavors" -->
-    <Flavors
+    <FlavorsComponent
       :items="[
         { title: 'Home', redirect: '/' },
         { title: 'Plug & Play', redirect: '/demo/plug_and_play' }
@@ -54,7 +52,7 @@
 
 <script setup lang="ts">
 import { useCoinBalance, useWallet } from 'vuiet'
-import Flavors from '../../components/FlavorsComponent.vue'
+import {FlavorsComponent} from '../../components'
 
 const $wallet = useWallet()
 const { balance, fetching: fetchingBalance } = useCoinBalance()
