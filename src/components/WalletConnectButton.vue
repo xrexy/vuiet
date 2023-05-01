@@ -1,14 +1,19 @@
 <template>
   <slot name="main">
     <slot name="connected" v-if="address">
-      <div class="bg-gradient-to-b to-v-blue-400 from-v-blue-700 p-1 rounded-lg">
+      <div class="bg-gradient-to-b to-v-blue-400 from-v-blue-700 p-1 rounded-lg w-fit">
         <div
           class="text-white flex justify-between items-center bg-black/50 px-4 py-2 gap-20 rounded-lg"
         >
           <div class="flex flex-col">
-            <p :title="address" class="text-lg font-semibold">
+            <button
+              ref="addressRef"
+              @click="copy(address)"
+              :title="address"
+              class="text-lg font-semibold hover:text-v-blue-200"
+            >
               {{ `${address.substring(0, 5)}...${address.slice(-4)}` }}
-            </p>
+            </button>
             <p class="text-v-blue-200">
               {{ fetchingBalance ? '...' : (Number(balance) / 1e9).toLocaleString() }} SUI
             </p>
@@ -43,13 +48,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useCoinBalance, useWallet } from '..'
-import { add } from 'lodash-es'
 
 const $wallet = useWallet()
 const { balance, fetching: fetchingBalance } = useCoinBalance()
 const address = computed(() => $wallet.address.value)
 
 defineEmits(['connect', 'disconnect'])
+
+const addressRef = ref<HTMLButtonElement>()
+function copy(address: string, text = 'Copied!', timeout = 1000) {
+  const before = addressRef.value!.innerText
+  if (address == '' || before == text) return
+
+  navigator.clipboard.writeText(address)
+  console.log('copied')
+
+  addressRef.value!.innerText = text
+  setTimeout(() => {
+    addressRef.value!.innerText = before
+  }, timeout)
+}
 </script>
