@@ -1,52 +1,44 @@
 <template>
-  <ModalWrapper :on-close="onClose" :is-open="isOpen">
-    <div class="flex justify-between w-full">
-      <p class="font-bold text-lg">Connecting...</p>
-      <button id="wallet-close-btn" class="" @click="onClose()">
-        <svg viewBox="0 0 24 24">
-          <path
-            d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z"
-          />
-        </svg>
-      </button>
+  <ModalWrapper @close="$emit('close')">
+    <div class="flex text-v-blue-800 flex-col justify-between w-full py-4 z-[100] rounded-t-md">
+      <div class="flex justify-between items-center w-full px-4">
+        <p class="text-md font-bold">
+          Connecting with <span class="text-v-blue-400">{{ wallet.displayName }}</span>
+        </p>
+        <button
+          class="rounded-full w-8 h-8 bg-v-gray-400/20 flex justify-center items-center hover:bg-v-blue-400/40 group"
+          @click="$emit('close')"
+        >
+          <svg class="w-5 h-5 fill-v-blue-900/30 group-hover:fill-white" viewBox="0 0 24 24">
+            <path
+              d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
 
-    <div>
-      <!-- Detected -->
-      {{ wallet.displayName }}
+    <div class="text-center py-12 flex flex-col items-center gap-12">
+      <p>{{ message }}</p>
     </div>
   </ModalWrapper>
 </template>
 
 <script setup lang="ts">
-import type { IWallet } from '../../types'
 import type { PropType } from 'vue'
 import { ModalWrapper } from '..'
+import type { IWallet } from '../../types'
 
 defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true
-  },
-  onClose: {
-    type: Function,
-    required: true
-  },
   wallet: {
     type: Object as PropType<IWallet>,
     required: true
+  },
+  message: {
+    type: String,
+    default: 'Please approve the transaction on your screen.'
   }
 })
+
+defineEmits(['close'])
 </script>
-
-<style scoped>
-/* For some reason tailwind doesn't want to compute the styles if they are in the classes. (BUT SOME ELEMENTS WORK AM I MISSING SOMETHING???) */
-/* Sometimes I just wanna go to sleep and never wake up. */
-#wallet-close-btn {
-  @apply rounded-full w-8 h-8 bg-v-gray-400/25 flex justify-center items-center hover:bg-v-gray-500/25;
-}
-
-#wallet-close-btn svg {
-  @apply w-5 h-5 fill-v-gray-400;
-}
-</style>

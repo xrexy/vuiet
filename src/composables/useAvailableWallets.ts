@@ -42,6 +42,7 @@ export const useAvailableWallets = (def: IWallet[]) => {
         displayName: adapter.name,
         installed: true,
         icon: adapter.icon,
+        downloadUrls: def.find((w) => w.displayName === adapter.name)!.downloadUrls,
         adapter
       }))
   })

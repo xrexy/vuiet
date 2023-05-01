@@ -46,7 +46,7 @@
     <Flavors
       :items="[
         { title: 'Home', redirect: '/' },
-        { title: 'Plugin & Play', redirect: '/demo/plug_and_play' }
+        { title: 'Plug & Play', redirect: '/demo/plug_and_play' }
       ]"
     />
   </div>
@@ -70,7 +70,8 @@ const codeblock = `${lt}template>
 ${lt}/template>
 
 ${lt}script setup>
-  const $wallet = useWallet()
+  import { useWallet, useCoinBalance } from 'vuiet';
+  const $wallet = useWallet();
   const { balance } = useCoinBalance();
 ${lt}/script>
 `

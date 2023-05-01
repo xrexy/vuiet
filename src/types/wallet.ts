@@ -27,6 +27,12 @@ export type IWallet = {
   icon: string
   adapter: Nullable<IWalletAdapter>
   installed: boolean
+
+  // All of the current supported sui wallets are only for chrome. 
+  // In the future will be added here and detected using the user agent
+  downloadUrls: {
+    chrome: string
+  }
 }
 
 export type IWalletStore = {

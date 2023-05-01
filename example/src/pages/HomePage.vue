@@ -37,7 +37,7 @@
     <Flavors
       :items="[
         { title: 'Minimal', redirect: '/demo/minimal' },
-        { title: 'Plugin & Play', redirect: '/demo/plug_and_play' }
+        { title: 'Plug & Play', redirect: '/demo/plug_and_play' }
       ]"
     />
   </div>

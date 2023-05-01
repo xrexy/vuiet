@@ -5,17 +5,6 @@ export default {
     extend: {
       // https://coolors.co/palette/ffa69e-faf3dd-b8f2e6-aed9e0-5e6471
       colors: {
-        "v-orange": {
-          100: "#ffedec",
-          200: "#ffdbd8",
-          300: "#ffcac5",
-          400: "#ffb8b1",
-          500: "#ffa69e",
-          600: "#cc857e",
-          700: "#99645f",
-          800: "#66423f",
-          900: "#332120",
-        },
         "v-blue": {
           100: "#ccf0f7",
           200: "#99e1ef",
