@@ -6,7 +6,7 @@
           class="text-white flex justify-between items-center bg-black/50 px-4 py-2 gap-20 rounded-lg"
         >
           <div class="flex flex-col">
-            <p class="text-lg font-semibold">
+            <p :title="address" class="text-lg font-semibold">
               {{ `${address.substring(0, 5)}...${address.slice(-4)}` }}
             </p>
             <p class="text-v-blue-200">
@@ -45,6 +45,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useCoinBalance, useWallet } from '..'
+import { add } from 'lodash-es'
 
 const $wallet = useWallet()
 const { balance, fetching: fetchingBalance } = useCoinBalance()

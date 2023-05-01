@@ -2,7 +2,7 @@
   <ModalWrapper @close="$emit('close')">
     <div class="flex text-v-blue-800 flex-col justify-between w-full py-4 z-[100] rounded-t-md">
       <div class="flex justify-between items-center w-full px-4">
-        <p class="text-md font-bold">Not Connected</p>
+        <p class="text-md font-bold">Select Wallet</p>
         <button
           class="rounded-full w-8 h-8 bg-v-gray-400/20 flex justify-center items-center hover:bg-v-blue-400/40 group"
           @click="$emit('close')"
