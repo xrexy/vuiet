@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useCoinBalance, useWallet } from '..'
+import { useCoinBalance, useWallet, type Nullable } from '..'
 
 const $wallet = useWallet()
 const { balance, fetching: fetchingBalance } = useCoinBalance()
@@ -58,9 +58,9 @@ const address = computed(() => $wallet.address.value)
 defineEmits(['connect', 'disconnect'])
 
 const addressRef = ref<HTMLButtonElement>()
-function copy(address: string, text = 'Copied!', timeout = 1000) {
+function copy(address: Nullable<string>, text = 'Copied!', timeout = 1000) {
   const before = addressRef.value!.innerText
-  if (address == '' || before == text) return
+  if (!address || before == text) return
 
   navigator.clipboard.writeText(address)
 
