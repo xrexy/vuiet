@@ -1,6 +1,6 @@
 {
   "name": "vuiet",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Minimal wallet manager on the Sui blockhain for Vue 3",
   "author": "xrexy",
   "license": "MIT",
@@ -20,9 +20,7 @@
     "./dist/style.css": "./dist/style.css"
   },
   "scripts": {
-    "dev": "vite",
     "build": "vite build && vue-tsc --emitDeclarationOnly",
-    "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
