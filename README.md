@@ -1,4 +1,4 @@
-# Vuiet ![](https://img.shields.io/npm/v/vuiet?color=blue) ![](https://img.shields.io/npm/dm/vuiet?color=blue)
+# Vuiet <a href="https://www.npmjs.com/package/vuiet" target="_blank">![](https://img.shields.io/npm/v/vuiet?color=blue)</a> <a href="https://www.npmjs.com/package/vuiet" target="_blank">![](https://img.shields.io/npm/dm/vuiet?color=blue)</a>
 
 Vuiet is a minimal wallet manager built on the Sui blockchain for Vue 3.
 
