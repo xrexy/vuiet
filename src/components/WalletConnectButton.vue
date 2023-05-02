@@ -10,7 +10,7 @@
               ref="addressRef"
               @click="copy(address)"
               :title="address"
-              class="text-lg font-semibold hover:text-v-blue-200"
+              class="text-lg text-left font-semibold hover:text-v-blue-200 w-[10ch]"
             >
               {{ `${address.substring(0, 5)}...${address.slice(-4)}` }}
             </button>
@@ -59,14 +59,14 @@ defineEmits(['connect', 'disconnect'])
 
 const addressRef = ref<HTMLButtonElement>()
 function copy(address: Nullable<string>, text = 'Copied!', timeout = 1000) {
-  const before = addressRef.value!.innerText
+  const before = addressRef.value!.textContent
   if (!address || before == text) return
 
   navigator.clipboard.writeText(address)
 
-  addressRef.value!.innerText = text
+  addressRef.value!.textContent = text
   setTimeout(() => {
-    addressRef.value!.innerText = before
+    addressRef.value!.textContent = before
   }, timeout)
 }
 </script>
