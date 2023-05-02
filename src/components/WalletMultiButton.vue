@@ -34,13 +34,13 @@ const targetWallet = ref<Nullable<IWallet>>(null)
 const $wallet = useWallet()
 
 function handleWalletClick(wallet: IWallet) {
-  targetWallet.value = wallet
-
   if (!wallet.installed) {
     window.open(wallet.downloadUrls.chrome, '_blank')
     closeModal()
     return
   }
+
+  targetWallet.value = wallet
   modalType.value = WalletModalType.CONNECTING
   $wallet.select(wallet.displayName).finally(() => {
     targetWallet.value = null
@@ -57,7 +57,7 @@ function handleOnConnect() {
 }
 
 function handleOnDisconnect() {
-  modalType.value = null
   $wallet.disconnect()
+  modalType.value = null
 }
 </script>
