@@ -27,11 +27,22 @@
     </div>
 
     <!-- Title -->
-    <div class="flex flex-col items-center gap-4">
-      <h1 class="title-gradient font-black text-6xl tracking-wider">Vuiet</h1>
-      <p class="text-lg px-4 sm:p-0 text-center">
-        A minimal wallet manager for the Sui blockchain.
-      </p>
+    <div class="flex flex-col items-center gap-8">
+      <div class="flex flex-col items-center gap-4">
+        <h1 class="title-gradient font-black text-6xl tracking-wider">Vuiet</h1>
+        <p class="text-lg px-4 sm:p-0 text-center">
+          A minimal wallet manager for the Sui blockchain.
+        </p>
+      </div>
+
+      <div class="flex flex-row justify-evenly w-full">
+        <a href="https://bundlephobia.com/package/vuiet@1.1.0" target="_blank">
+          📦 <b>10.4</b>kB gzipped
+        </a>
+        <a class="flex gap-2" href="https://www.npmjs.com/package/vuiet" target="_blank">
+          <img src="https://img.shields.io/npm/dm/vuiet?color=blue&label=" /> downloads
+        </a>
+      </div>
     </div>
 
     <Flavors
