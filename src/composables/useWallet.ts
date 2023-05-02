@@ -114,7 +114,6 @@ const createWalletStore = ({
     }
 
     const target = installedWallets.value.find((w) => w.displayName == walletName)
-
     if (!target) {
       const installedWalletsNames = installedWallets.value.map((w) => w.displayName)
 
@@ -130,7 +129,7 @@ const createWalletStore = ({
       )
     }
 
-    await connect(target.adapter!)
+    return await connect(target.adapter!)
   }
 
   async function connect(
@@ -147,7 +146,7 @@ const createWalletStore = ({
 
       setStatus(IWalletStoreStatus.CONNECTED)
       if (autoConnect) {
-        localStorage.setItem(LocalStorageKey.PREV_WALLET_NAME, connectionAdapter.name);
+        localStorage.setItem(LocalStorageKey.PREV_WALLET_NAME, connectionAdapter.name)
       }
 
       return connectionRes
@@ -158,13 +157,12 @@ const createWalletStore = ({
   }
 
   async function disconnect() {
-    if (!adapter.value) return // Nothing to disconnect from
-    if (!adapter.value.hasFeature(Feature.DISCONNECT)) return // Adapter does not support disconnecting
-
     try {
       setStatus(IWalletStoreStatus.DISCONNECTING)
 
-      await adapter.value.disconnect()
+      if (adapter.value && adapter.value.hasFeature(Feature.DISCONNECT)) {
+        await adapter.value.disconnect()
+      }
 
       localStorage.removeItem(LocalStorageKey.PREV_WALLET_NAME)
       setStatus(IWalletStoreStatus.DISCONNECTED)

@@ -111,7 +111,7 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feat.connect(input)
     } catch (err: any) {
-      // TODO try to handle error, also better erros
+      // TODO try to handle error, also better errors
       throw new Error(err.message)
     }
   }

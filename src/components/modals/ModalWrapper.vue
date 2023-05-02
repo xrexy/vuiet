@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { onUpdated, ref } from 'vue'
+import { ref } from 'vue'
 import { useClickOutside } from '../..'
 
 const $emit = defineEmits(['close'])
@@ -31,13 +31,11 @@ defineProps({
   }
 })
 
-onUpdated(() => {
-  mountMs.value = Date.now()
-})
-
 const modalRef = ref<HTMLDivElement>()
 useClickOutside(modalRef, () => {
+  if (mountMs.value == 0) mountMs.value = Date.now() + MOUNT_CLICK_OUTSIDE_DELAY
   if (Date.now() - mountMs.value > MOUNT_CLICK_OUTSIDE_DELAY) {
+    mountMs.value = 0;
     $emit('close')
   }
 })

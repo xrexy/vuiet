@@ -63,7 +63,7 @@ export type IWalletStore = {
   address: ComputedRef<Nullable<string>>
 
   // Functions
-  select: (walletName: string) => Promise<void>
+  select: (walletName: string) => Promise<Nullable<StandardConnectOutput>>
   connect: (adapter: IWalletAdapter) => Promise<StandardConnectOutput>
   disconnect: () => Promise<void>
 
