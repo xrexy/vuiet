@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div>
+      <div v-if="availableWallets.length > 0">
         <h3>Available</h3>
         <div class="flex flex-col gap-2">
           <a
