@@ -1,6 +1,6 @@
 {
   "name": "vuiet",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Minimal wallet manager on the Sui blockhain for Vue 3",
   "author": "xrexy",
   "keywords": ["vue", "sui", "blockchain", "wallet", "manager"],
