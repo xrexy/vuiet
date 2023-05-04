@@ -2,6 +2,8 @@
 
 Vuiet is a minimal wallet manager built on the Sui blockchain for Vue 3.
 
+Made with love by the [@taiyorobotics](https://twitter.com/TaiyoRobotics) team.
+
 ## Demo
 
 Basic code examples can be found on our demo page - [vuiet.dev](https://vuiet.dev)
