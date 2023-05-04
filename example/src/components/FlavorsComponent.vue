@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center gap-y-4">
     <p class="font-bold text-xl text-v-blue-400">{{ heading }}</p>
-    <div class="flex items-center gap-x-4">
+    <div class="flex flex-row items-center gap-x-4 gap-y-2">
       <RouterLink class="example-btn" :to="items[0].redirect">{{ items[0].title }}</RouterLink>
       <p>...or</p>
       <RouterLink class="example-btn" :to="items[1].redirect">{{ items[1].title }}</RouterLink>
