@@ -27,7 +27,7 @@
             :key="wallet.displayName"
           >
             <span class="font-semibold">{{ wallet.displayName }}</span>
-            <img class="rounded-full w-10 h-10" :src="wallet.icon" :alt="wallet.displayName" />
+            <img class="rounded-full w-8 h-8" :src="wallet.icon" :alt="wallet.displayName" />
           </button>
         </div>
       </div>
@@ -39,12 +39,12 @@
             @click="$emit('w-click', wallet)"
             :href="wallet.downloadUrls.chrome"
             target="_blank"
-            class="bg-black/5 rounded-lg flex justify-between items-center py-2 px-4 border-2 border-transparent hover:border-v-blue-300 hover:bg-v-blue-400/25"
+            class="bg-black/5 rounded-lg flex justify-between items-center py-2 px-2 border-2 border-transparent hover:border-v-blue-300 hover:bg-v-blue-400/25"
             v-for="wallet in availableWallets"
             :key="wallet.displayName"
           >
             <span class="font-semibold">{{ wallet.displayName }}</span>
-            <img class="rounded-full w-10 h-10" :src="wallet.icon" :alt="wallet.displayName" />
+            <img class="rounded-full w-8 h-8" :src="wallet.icon" :alt="wallet.displayName" />
           </a>
         </div>
       </div>

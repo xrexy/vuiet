@@ -3,7 +3,7 @@ import { ref, watchEffect } from 'vue'
 import { WalletAdapter, type IWalletAdapter } from '../wallet'
 
 const isWalletCompatible = (w: Wallet) =>
-  ['standard:connect', 'standard:events', 'sui:signMessage'].every((x) => x in w.features)
+  ['standard:connect', 'standard:events', 'sui:signTransactionBlock'].every((x) => x in w.features)
 
 export function useWalletAdaptersDetection() {
   const standardManager = ref<Wallets>()
