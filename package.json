@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@mysten/sui.js": "^0.32.2",
-    "@mysten/wallet-standard": "^0.5.4",
+    "@mysten/wallet-standard": "^0.6.0",
     "@wallet-standard/core": "^1.0.3",
     "lodash-es": "^4.17.21",
     "vue": "^3.2.47"
