@@ -57,8 +57,8 @@
     "vue-tsc": "^1.2.0"
   },
   "peerDependencies": {
-    "@mysten/sui.js": "^0.32.2",
-    "vue": "^3.2.47"
+    "@mysten/sui.js": "^0.44.0",
+    "vue": "^3.3.6"
   },
   "repository": {
     "type": "git",
