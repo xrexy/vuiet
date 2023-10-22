@@ -2,8 +2,6 @@
 
 Vuiet is a minimal wallet manager built on the Sui blockchain for Vue 3.
 
-Made with love by the [@taiyorobotics](https://twitter.com/TaiyoRobotics) team.
-
 ## Demo
 
 Basic code examples can be found on our demo page - [vuiet.dev](https://vuiet.dev)
@@ -59,10 +57,12 @@ Deleting the entry will make the lib "forget" it, but will not auto-disconnect t
 
 > Values that can be overwritten: nodeUrl, displayName, key and faucetUrl
 
-<br />
-
 * Valid chains are SUI_DEVNET, SUI_TESTNET and SUI_MAINNET
 
+<br />
+
+<b>shouldGlobal</b> (optional)
+> Whenever to add the wallet to the global vue instance. If enabled wallet will be added to vue's globalProperties as `$wallet`.
 ## Basic Usage
 
 ```html

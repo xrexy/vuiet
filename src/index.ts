@@ -18,6 +18,6 @@ export * from './wallet/'
 export default {
   install: (app: App, options: IWalletStoreProps = {}) => {
     initWallet(options)
-    app.config.globalProperties.$wallet = useWallet()
+    if(options?.shouldGlobal) app.config.globalProperties.$wallet = useWallet()
   }
 }

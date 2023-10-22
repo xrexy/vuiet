@@ -82,4 +82,5 @@ export type IWalletStoreProps = Partial<{
   chainOverwrite: IWalletStoreChainOverwrite
   chain: ValidChain
   autoConnect: boolean
+  shouldGlobal: boolean
 }>
