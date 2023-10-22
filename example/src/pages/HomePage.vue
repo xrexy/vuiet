@@ -1,8 +1,8 @@
 <template>
-  <div class="text-v-gray-100 h-full w-full flex flex-col justify-between py-16 items-center">
+  <div class="flex flex-col items-center justify-between w-full h-full py-16 text-v-gray-100">
     <!-- Wallets -->
-    <div class="flex items-center flex-col">
-      <p class="font-bold text-xl text-v-blue-400 pb-4">Supported Wallets</p>
+    <div class="flex flex-col items-center">
+      <p class="pb-4 text-xl font-bold text-v-blue-400">Supported Wallets</p>
       <ul
         class="flex w-[95%] sm:w-[65%] flex-wrap gap-8 justify-center sm:justify-evenly pb-16 sm:pb-0"
       >
@@ -15,7 +15,7 @@
           <p class="font-bold">{{ wallet.displayName }}</p>
         </li>
         <li class="flex items-center gap-2">
-          <div class="w-10 h-10 bg-v-blue-800/75 rounded-full flex items-center justify-center">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full bg-v-blue-800/75">
             <svg class="w-8 h-8 text-v-blue-400/50" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -31,14 +31,14 @@
     <!-- Title -->
     <div class="flex flex-col items-center justify-center gap-8">
       <div class="flex flex-col items-center gap-4">
-        <h1 class="title-gradient font-black text-6xl tracking-wider">Vuiet</h1>
-        <p class="text-lg px-4 sm:p-0 text-center">
+        <h1 class="text-6xl font-black tracking-wider title-gradient">Vuiet</h1>
+        <p class="px-4 text-lg text-center sm:p-0">
           A minimal wallet manager for the Sui blockchain.
         </p>
       </div>
 
-      <div class="flex flex-col sm:flex-row items-center gap-y-4 justify-evenly w-full pb-16 sm:pb-0">
-        <a href="https://bundlephobia.com/package/vuiet@1.1.0" target="_blank">
+      <div class="flex flex-col items-center w-full pb-16 sm:flex-row gap-y-4 justify-evenly sm:pb-0">
+        <a href="https://bundlephobia.com/package/vuiet@1.2.1" target="_blank">
           📦 <b>10.4</b>kB gzipped
         </a>
         <a class="flex gap-2" href="https://www.npmjs.com/package/vuiet" target="_blank">
